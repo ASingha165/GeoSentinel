@@ -374,6 +374,8 @@ Base URL: `http://localhost:8000/api/v1`
   * `303fd34`: Documentation structure update aligning with task requirements.
   * `3006ea6`: Resolved recurring Docker Buildx action failure, added `.dockerignore`, root `requirements.txt`, and live container health verification (Run 41235547825 passing).
   * `786806d`: Integrated authentic S3 Sentinel-2 STAC data stream, dynamic Leaflet map layer rendering from backend APIs, location place search, and expanded test suite to 18 unit and integration tests (GitHub Actions Run [41238297107](https://github.com/ASingha165/GeoSentinel/actions/runs/41238297107) passing across all matrix jobs).
+  * `c996af2`: Synchronized AGENTS.md milestone 786806d and verified all CI/CD matrix jobs in Run 41238641784.
+  * `Final Prep`: Added on-map Data Provenance HUD legend, auto-fit bounds on Sentinel-2 S3 Swath toggle, search feedback toast notifications, and enhanced data provenance classification matrix.
 
 ---
 

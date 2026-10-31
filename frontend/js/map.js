@@ -198,8 +198,18 @@ export class GeoSentinelMap {
         clusterGroup.addTo(this.map);
         this.layers['clusters'] = clusterGroup;
       }
+
+      // Update HUD sync badge if present
+      const syncEl = document.getElementById('map-sync-status');
+      if (syncEl) {
+        syncEl.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span><span>4/4 SYNCED</span>';
+      }
     } catch (e) {
       console.error('Error loading layers from API into Leaflet map:', e);
+      const syncEl = document.getElementById('map-sync-status');
+      if (syncEl) {
+        syncEl.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-error"></span><span>RETRYING</span>';
+      }
     }
   }
 
@@ -242,9 +252,31 @@ export class GeoSentinelMap {
           .openPopup();
 
         this.map.flyTo([lat, lng], 13, { duration: 1.5 });
+      } else {
+        this.showToast(`No coordinates found for "${query}". Try "Phoenix", "Tempe", or "33.45, -112.07"`);
       }
     } catch (err) {
       console.warn('Map search and focus error:', err);
+      this.showToast('Search service temporarily unavailable.');
+    }
+  }
+
+  showToast(message) {
+    const existing = document.getElementById('map-toast-notification');
+    if (existing) existing.remove();
+
+    const toast = document.createElement('div');
+    toast.id = 'map-toast-notification';
+    toast.className = 'absolute top-16 left-1/2 -translate-x-1/2 z-50 px-4 py-2 rounded bg-surface-container-high/95 text-on-surface font-mono-metric-sm text-xs border border-primary/40 shadow-2xl backdrop-blur-md transition-all duration-300';
+    toast.textContent = message;
+
+    const container = document.getElementById(this.containerId);
+    if (container && container.parentElement) {
+      container.parentElement.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 400);
+      }, 4000);
     }
   }
 
@@ -263,9 +295,22 @@ export class GeoSentinelMap {
     if (!this.layers[layerId] || !this.map) return false;
     if (this.map.hasLayer(this.layers[layerId])) {
       this.map.removeLayer(this.layers[layerId]);
+      if (layerId === 'sentinel_scene') {
+        this.resetView();
+      }
       return false;
     } else {
       this.map.addLayer(this.layers[layerId]);
+      if (layerId === 'sentinel_scene') {
+        try {
+          const bounds = this.layers[layerId].getBounds();
+          if (bounds && bounds.isValid()) {
+            this.map.fitBounds(bounds, { padding: [50, 50], maxZoom: 10, animate: true });
+          }
+        } catch (e) {
+          console.warn('Could not auto-fit bounds to sentinel_scene:', e);
+        }
+      }
       return true;
     }
   }

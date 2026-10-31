@@ -191,65 +191,80 @@ GeoSentinel/
 | Feature | Status | Implementation Details |
 | :--- | :--- | :--- |
 | **Dashboard** | **Tested** | Implemented 5 unified views (Command Center, Explorer, Location Intel, Environmental, Data Sources) in [`frontend/index.html`](file:///D:/Geo%20Sentinel/frontend/index.html) with live Zulu clock, pass ticker, and KPI cards. Verified in browser and automated tests. |
-| **Interactive Map** | **Tested** | Cartography engine in [`frontend/js/map.js`](file:///D:/Geo%20Sentinel/frontend/js/map.js) with dark basemap, AOI bounding polygon, radiometric hotspots, cluster divIcons, and coordinate hover inspector. Verified. |
-| **Amazon Location Service** | **Tested** | Spatial helper in [`backend/app/aws/location_service.py`](file:///D:/Geo%20Sentinel/backend/app/aws/location_service.py) providing Haversine distance calculations and circular geofencing for buffer evaluation. Verified by `test_calculate_buffer_zone`. |
-| **Geospatial Dataset** | **Tested** | GeoJSON schemas and baseline loaders in [`data/`](file:///D:/Geo%20Sentinel/data/) and [`backend/app/datasets/loader.py`](file:///D:/Geo%20Sentinel/backend/app/datasets/loader.py). Tested via `test_phoenix_aoi_geojson`, `test_thermal_anomalies_geojson`, and `test_sensor_clusters`. |
-| **Heatmap** | **Tested** | Thermal IR Radiance overlays with severity pulse animations, popup telemetry, and temperature scales. Verified in Leaflet and SVG renderers. |
-| **Clustering** | **Tested** | Spatial density clusters (+112, +48, +12 nodes) with severity classifications and coverage areas. Verified via `/api/v1/location/clusters` and `test_get_sensor_clusters`. |
-| **Location Search** | **Tested** | Keyboard-accessible search input (`Cmd+K` / `Ctrl+K`) for Lat/Long coordinates and Tile IDs in HUD header. Tested and verified in frontend. |
+| **Interactive Map** | **Tested** | Dynamic asynchronous data loading from `/api/v1/layers/...` into Leaflet engine ([`frontend/js/map.js`](file:///D:/Geo%20Sentinel/frontend/js/map.js)); renders real S3 Sentinel-2 swath polygon, AOI bounding polygon, thermal hotspots, sensor clusters, and search flyTo focus. |
+| **Amazon Location Service** | **In Progress** | Local spatial engine (`LocalSpatialEngine`) for Haversine distance and geofenced buffer evaluation is implemented and tested. Genuine Amazon Location Service client scaffolding (`AmazonLocationClient`) is implemented in [`backend/app/aws/location_service.py`](file:///D:/Geo%20Sentinel/backend/app/aws/location_service.py) with `SearchPlaceIndexForText` and `CalculateRoute` bindings, activating when IAM credentials and `AWS_LOCATION_PLACE_INDEX` are provided. |
+| **Geospatial Dataset** | **Tested** | Authentic Sentinel-2 STAC GeoJSON feature (`S2A_12SXE_20240724_0_L2A.json`) sourced from `s3://sentinel-cogs`, plus calibrated Phoenix Metro boundary polygon and climatology baseline in [`data/`](file:///D:/Geo%20Sentinel/data/). Tested via Pytest. |
+| **Heatmap** | **Tested** | Thermal IR Radiance overlays with severity pulse animations, popup telemetry, and temperature scales dynamically loaded from backend API. Verified in Leaflet and SVG renderers. |
+| **Clustering** | **Tested** | Spatial density clusters (+112, +48, +12 nodes) with severity classifications and coverage areas dynamically loaded from `/api/v1/location/clusters`. Verified by `test_get_sensor_clusters`. |
+| **Location Search** | **Tested** | Geographic place and coordinate search via `/api/v1/location/search` and header search input (`Cmd+K` / `Ctrl+K`), dynamically flying the map viewport to target coordinates. |
 | **Analytics** | **Tested** | Urban Heat Island delta calculations, multi-year comparisons, Gaussian distributions, and correlation matrices. Verified by `test_environmental_summary` and `test_environmental_timeseries`. |
-| **Amazon S3** | **Tested** | [`backend/app/aws/s3_client.py`](file:///D:/Geo%20Sentinel/backend/app/aws/s3_client.py) querying `sentinel-s2-l2a`, `modis-pds`, `noaa-hrrr-bdp-pds` with automatic unsigned anonymous mode. Verified by `test_list_aws_datasets`, `test_aws_granules_listing`, `test_s3_client_bucket_check`. |
-| **Backend APIs** | **Tested** | FastAPI REST endpoints under `/api/v1` for telemetry, layers, environmental analytics, location buffer, and AWS status. 14/14 Pytest tests passing. |
-| **Deployment** | **Tested** | Multi-stage [`docker/Dockerfile`](file:///D:/Geo%20Sentinel/docker/Dockerfile), [`docker-compose.yml`](file:///D:/Geo%20Sentinel/docker-compose.yml), and GitHub Actions workflow ([`.github/workflows/ci.yml`](file:///D:/Geo%20Sentinel/.github/workflows/ci.yml)). Tested locally. |
+| **Amazon S3** | **Tested** | [`backend/app/aws/s3_client.py`](file:///D:/Geo%20Sentinel/backend/app/aws/s3_client.py) querying `s3://sentinel-cogs`, `s3://sentinel-s2-l2a`, `s3://modis-pds` with automatic unsigned anonymous mode. Genuinely retrieves, parses, and normalizes real Sentinel-2 STAC GeoJSON scene data. Verified by unit tests. |
+| **Backend APIs** | **Tested** | FastAPI REST endpoints under `/api/v1` for telemetry, layers, environmental analytics, location search & buffer, and AWS status. 18/18 Pytest tests passing. |
+| **Deployment** | **Tested** | Multi-stage [`docker/Dockerfile`](file:///D:/Geo%20Sentinel/docker/Dockerfile), [`docker-compose.yml`](file:///D:/Geo%20Sentinel/docker-compose.yml), and GitHub Actions CI/CD pipeline ([`.github/workflows/ci.yml`](file:///D:/Geo%20Sentinel/.github/workflows/ci.yml)) passing across Python 3.10-3.12 and container verification. |
 
 ---
 
 ### F. Dataset Documentation
 
 > [!IMPORTANT]
-> The demonstration datasets stored in `data/` are calibrated benchmark representations of Phoenix Metropolitan Area climatology (Maricopa County, Arizona). They are designed for reproducible local testing and offline verification, and are explicitly distinguished from live, variable satellite streams queried directly from AWS S3 buckets.
+> GeoSentinel explicitly distinguishes between authentic Earth Observation satellite scene data retrieved from public AWS S3 data lakes and calibrated demonstration benchmark datasets:
 
-#### 1. Local Demonstration Datasets (`data/`)
+#### 1. Authentic Satellite Data Stream (AWS S3)
+
+* **Sentinel-2A Level-2A Multi-Spectral STAC Scene**
+  * *Dataset Identifier:* `S2A_12SXE_20240724_0_L2A`
+  * *Original Source:* European Space Agency (ESA) & AWS Open Data Program (`s3://sentinel-cogs`)
+  * *Public Dataset URL:* `s3://sentinel-cogs/sentinel-s2-l2a-cogs/12/S/XE/2024/7/S2A_12SXE_20240724_0_L2A/S2A_12SXE_20240724_0_L2A.json`
+  * *Geographic Coverage:* MGRS Tile `12SXE` (Arizona, United States; bounding box `[35.13°N, -109.90°W]` to `[36.14°N, -108.66°W]`).
+  * *Data Format:* STAC 1.0.0 GeoJSON Feature referencing Cloud-Optimized GeoTIFFs (COGs).
+  * *Coordinate Reference System:* `urn:ogc:def:crs:OGC:1.3:CRS84` (WGS 84); projected native UTM EPSG:32612.
+  * *Number of Records:* 1 multi-spectral scene containing 14 spectral bands (B01-B12, SCL, TCI).
+  * *Data Classification:* **Real Satellite Observation** (acquired July 24, 2024 at 18:04:22 UTC; 23.2% cloud cover).
+  * *Processing Applied:* Normalized by `DatasetLoader.get_sentinel_scene()` into a standard GeoJSON `FeatureCollection` for interactive Leaflet rendering.
+  * *Attribution and Licensing:* CC-BY 4.0 / Copernicus Open Access Policy.
+  * *Storage Location:* Stored in AWS S3 and cached locally in [`data/sentinel_s2_stac_12sxe.json`](file:///D:/Geo%20Sentinel/data/sentinel_s2_stac_12sxe.json).
+
+#### 2. Local Benchmark Demonstration Datasets (`data/`)
 
 * **Phoenix Metropolitan Area AOI Bounding Polygon**
-  * *Dataset Name:* `GeoSentinel_Phoenix_AOI`
-  * *Original Sources:* Derived from Maricopa Association of Governments (MAG) urban boundary benchmarks.
+  * *Filename:* [`data/phoenix_aoi.geojson`](file:///D:/Geo%20Sentinel/data/phoenix_aoi.geojson)
+  * *Original Sources:* Calibrated to Maricopa Association of Governments (MAG) urban planning boundaries.
   * *Geographic Coverage:* Bounding box `[33.30°N, 112.30°W]` to `[33.62°N, 111.88°W]`.
   * *Data Format:* GeoJSON Polygon (`FeatureCollection`).
   * *Coordinate Reference System:* `urn:ogc:def:crs:OGC:1.3:CRS84` (WGS 84).
-  * *Processing Procedures:* Convex hull boundary extraction, coordinate rounding to 4 decimals, polygon geometry validation.
+  * *Number of Records:* 1 boundary polygon feature.
+  * *Data Classification:* **Calibrated Benchmark Boundary** (not a live observation).
   * *Attribution and Licensing:* Open Benchmark / Public Domain.
-  * *Storage Location:* [`data/phoenix_aoi.geojson`](file:///D:/Geo%20Sentinel/data/phoenix_aoi.geojson).
 
 * **Thermal Radiance Hotspot Anomalies**
-  * *Dataset Name:* `GeoSentinel_Thermal_Anomalies`
-  * *Original Sources:* Synthesized from NASA MODIS (MOD11A1) and Sentinel-2 TIRS high-emissivity observations.
-  * *Geographic Coverage:* Downtown Phoenix Commercial Core, Sky Harbor Airport Runway Corridor, Metrocenter Concrete Basin, Tempe Industrial Park.
+  * *Filename:* [`data/thermal_anomalies.geojson`](file:///D:/Geo%20Sentinel/data/thermal_anomalies.geojson)
+  * *Original Sources:* Synthesized from NASA MODIS (MOD11A1) and Sentinel-2 TIRS high-emissivity urban heat clusters.
+  * *Geographic Coverage:* Downtown Phoenix Commercial Core, Sky Harbor Runway Corridor, Metrocenter Concrete Basin, Tempe Industrial Park.
   * *Data Format:* GeoJSON Point (`FeatureCollection`).
   * *Coordinate Reference System:* `urn:ogc:def:crs:OGC:1.3:CRS84` (WGS 84).
-  * *Processing Procedures:* Point clustering around impervious surfaces, emissivity gradient calculation, severity threshold tagging.
+  * *Number of Records:* 4 spatial hotspot features.
+  * *Data Classification:* **Derived Benchmark Data** (modeled after extreme summer heat observations).
   * *Attribution and Licensing:* Open Benchmark.
-  * *Storage Location:* [`data/thermal_anomalies.geojson`](file:///D:/Geo%20Sentinel/data/thermal_anomalies.geojson).
 
 * **Ground Sensor Telemetry Clusters**
-  * *Dataset Name:* `GeoSentinel_Sensor_Clusters`
+  * *Filename:* [`data/sensor_clusters.geojson`](file:///D:/Geo%20Sentinel/data/sensor_clusters.geojson)
   * *Original Sources:* Urban heat island micro-sensor network simulation.
-  * *Geographic Coverage:* Central urban core and peripheral suburban transects.
+  * *Geographic Coverage:* Phoenix Urban Core and suburban transects.
   * *Data Format:* GeoJSON Point (`FeatureCollection`).
   * *Coordinate Reference System:* `urn:ogc:def:crs:OGC:1.3:CRS84` (WGS 84).
-  * *Processing Procedures:* Spatial density calculation and coverage bounding radius computation.
+  * *Number of Records:* 3 sensor cluster features (totaling 172 simulated nodes).
+  * *Data Classification:* **Simulated Demonstration Data**.
   * *Attribution and Licensing:* Open Benchmark.
-  * *Storage Location:* [`data/sensor_clusters.geojson`](file:///D:/Geo%20Sentinel/data/sensor_clusters.geojson).
 
 * **10-Year LST Climatology Baseline (1991-2024)**
-  * *Dataset Name:* `MODIS_LST_CLIMATOLOGY_10YR`
-  * *Original Sources:* NOAA ERA5 Reanalysis & NASA MODIS Land Surface Temperature v6.1 10-year monthly averages.
+  * *Filename:* [`data/lst_climatology_baseline.json`](file:///D:/Geo%20Sentinel/data/lst_climatology_baseline.json)
+  * *Original Sources:* NOAA ERA5 Reanalysis & NASA MODIS Land Surface Temperature v6.1 10-year monthly normals.
   * *Geographic Coverage:* Phoenix Metropolitan Basin, Arizona.
-  * *Data Format:* JSON (monthly time-series records).
-  * *Coordinate Reference System:* N/A (Aggregated Zonal Metric).
-  * *Processing Procedures:* 30-year monthly baseline aggregation (1991-2020), annual deviation computation for 2020, 2022, and 2024.
+  * *Data Format:* JSON (12 monthly records).
+  * *Coordinate Reference System:* N/A (Zonal Time-Series Metric).
+  * *Number of Records:* 12 monthly baseline records with historical vs. 2020-2024 warming curves.
+  * *Data Classification:* **Derived Historical Climatology**.
   * *Attribution and Licensing:* Public Domain.
-  * *Storage Location:* [`data/lst_climatology_baseline.json`](file:///D:/Geo%20Sentinel/data/lst_climatology_baseline.json).
 
 #### 2. Remote Earth Observation Streams (AWS S3)
 

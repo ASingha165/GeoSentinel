@@ -105,14 +105,48 @@ class GeoSentinelApp {
           btnThermal.classList.toggle('opacity-50', !active);
         });
       }
+
+      const btnSentinel = document.getElementById('btn-layer-sentinel');
+      if (btnSentinel) {
+        btnSentinel.addEventListener('click', () => {
+          const active = this.mapInstance.toggleLayer('sentinel_scene');
+          btnSentinel.classList.toggle('opacity-50', !active);
+        });
+      }
+
+      const btnClusters = document.getElementById('btn-layer-clusters');
+      if (btnClusters) {
+        btnClusters.addEventListener('click', () => {
+          const active = this.mapInstance.toggleLayer('clusters');
+          btnClusters.classList.toggle('opacity-50', !active);
+        });
+      }
     }
   }
 
   bindShortcuts() {
+    // Search input (Enter to search & fly on map)
+    const searchInput = document.getElementById('header-search-input') || document.querySelector('header input[type="text"]');
+    if (searchInput) {
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          const query = searchInput.value.trim();
+          if (query) {
+            this.switchView('geospatial-explorer');
+            setTimeout(() => {
+              if (this.mapInstance) {
+                this.mapInstance.searchAndFocus(query);
+              }
+            }, 250);
+          }
+        }
+      });
+    }
+
     window.addEventListener('keydown', (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
-        const searchInput = document.querySelector('header input[type="text"]');
         if (searchInput) searchInput.focus();
       }
     });

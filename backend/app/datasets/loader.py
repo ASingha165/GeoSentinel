@@ -1,7 +1,7 @@
 """GeoSentinel Dataset Loader & Spatial Query Helper.
 
 Loads and parses local GeoJSON datasets, STAC metadata, and climatology
-time-series records.
+time-series records with AWS S3 streaming support.
 """
 
 from __future__ import annotations
@@ -9,6 +9,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+from backend.app.aws.s3_client import aws_s3_client
 
 DATA_DIR = Path(__file__).resolve().parent.parent.parent.parent / "data"
 
@@ -35,6 +36,20 @@ class DatasetLoader:
     def get_climatology_baseline(self) -> Dict[str, Any]:
         """Return LST historical climatology and multi-year time-series data."""
         return self._load_json("lst_climatology_baseline.json")
+
+    def get_sentinel_scene(self) -> Dict[str, Any]:
+        """Return authentic Sentinel-2 STAC GeoJSON FeatureCollection sourced from AWS S3."""
+        stac_feature = aws_s3_client.get_scene_stac()
+        # Normalize into a standard FeatureCollection for GIS map consumption
+        return {
+            "type": "FeatureCollection",
+            "name": "Sentinel2_L2A_S3_Scene_Footprint",
+            "crs": {
+                "type": "name",
+                "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"}
+            },
+            "features": [stac_feature]
+        }
 
     def filter_anomalies_by_severity(self, min_severity: str = "ALL") -> List[Dict[str, Any]]:
         """Filter thermal anomalies by severity level."""

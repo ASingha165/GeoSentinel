@@ -160,7 +160,7 @@
       <div class="flex items-center gap-space-lg flex-1 max-w-2xl">
         <div class="relative flex-1">
           <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
-          <input type="text" class="w-full bg-surface-container-lowest text-on-surface placeholder:text-outline text-body-sm font-mono-metric-sm pl-10 pr-space-md py-1.5 rounded border border-outline-variant/30 focus:outline-none focus:border-primary-container transition-colors" placeholder="Search Lat/Long, City, or Tile ID... [Cmd+K]"/>
+          <input id="header-search-input" type="text" class="w-full bg-surface-container-lowest text-on-surface placeholder:text-outline text-body-sm font-mono-metric-sm pl-10 pr-space-md py-1.5 rounded border border-outline-variant/30 focus:outline-none focus:border-primary-container transition-colors" placeholder="Search Lat/Long, City, or Tile ID... [Cmd+K]"/>
         </div>
         <div class="relative min-w-[220px]">
           <select class="w-full bg-surface-container-high text-on-surface text-body-sm font-body-sm px-space-md py-1.5 rounded border border-outline-variant/30 appearance-none cursor-pointer focus:outline-none pr-8">
@@ -451,11 +451,13 @@
                     <span class="w-1.5 h-1.5 rounded-full bg-on-primary-container animate-pulse"></span>
                     <span>Thermal IR</span>
                   </button>
-                  <button class="px-2 py-1 rounded bg-surface-container-high text-primary font-mono-metric-sm text-[11px] flex items-center gap-1">
-                    <span>Heat Index</span>
+                  <button id="btn-layer-sentinel" class="px-2 py-1 rounded bg-surface-container-high text-secondary font-mono-metric-sm text-[11px] flex items-center gap-1 hover:brightness-110">
+                    <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                    <span>Sentinel-2 S3 Swath</span>
                   </button>
-                  <button class="px-2 py-1 rounded bg-surface-container text-outline font-mono-metric-sm text-[11px] flex items-center gap-1">
-                    <span>NDVI Canopy</span>
+                  <button id="btn-layer-clusters" class="px-2 py-1 rounded bg-surface-container text-tertiary-container font-mono-metric-sm text-[11px] flex items-center gap-1 hover:brightness-110">
+                    <span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span>
+                    <span>Sensor Clusters</span>
                   </button>
                 </div>
               </div>

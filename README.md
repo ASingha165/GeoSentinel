@@ -121,7 +121,29 @@ python run.py
 docker compose up --build
 ```
 
-### 4. Execute Test Suite
+### 4. Deploy to AWS App Runner (Production Cloud Deployment)
+
+GeoSentinel provides fully automated scripts to build, push to **Amazon ECR**, and deploy on **AWS App Runner** with automatic SSL and auto-scaling:
+
+```bash
+# Automated deployment script (Linux / macOS)
+chmod +x scripts/deploy_apprunner.sh
+./scripts/deploy_apprunner.sh
+
+# Or on Windows PowerShell:
+.\scripts\deploy_apprunner.ps1 -Region us-east-1
+```
+
+* **Target Port:** `8000`
+* **Health Check Path:** `/api/v1/health`
+* **Instance Sizing:** `1 vCPU`, `2 GB RAM` (minimal cost, ~$0.007/active GB-hour + $0.064/vCPU-hour)
+* **Teardown Command:**
+  ```bash
+  aws apprunner delete-service --service-arn <SERVICE_ARN> --region us-east-1
+  aws ecr delete-repository --repository-name geosentinel --force --region us-east-1
+  ```
+
+### 5. Execute Test Suite
 ```bash
 python -m pytest
 ```

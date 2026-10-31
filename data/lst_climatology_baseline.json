@@ -1,0 +1,28 @@
+{
+  "dataset": "MODIS_LST_CLIMATOLOGY_10YR",
+  "aoi": "Phoenix Metro, Arizona",
+  "temporal_resolution": "Monthly",
+  "baseline_period": "1991-2020",
+  "units": "Celsius",
+  "series": [
+    { "month": "Jan", "baseline": 18.2, "year_2020": 19.1, "year_2022": 20.3, "year_2024": 21.0 },
+    { "month": "Feb", "baseline": 20.5, "year_2020": 21.0, "year_2022": 22.8, "year_2024": 23.4 },
+    { "month": "Mar", "baseline": 25.1, "year_2020": 25.4, "year_2022": 27.1, "year_2024": 28.5 },
+    { "month": "Apr", "baseline": 30.2, "year_2020": 31.5, "year_2022": 33.2, "year_2024": 34.6 },
+    { "month": "May", "baseline": 36.4, "year_2020": 37.8, "year_2022": 39.5, "year_2024": 40.8 },
+    { "month": "Jun", "baseline": 41.5, "year_2020": 42.9, "year_2022": 44.2, "year_2024": 46.1 },
+    { "month": "Jul", "baseline": 43.8, "year_2020": 44.5, "year_2022": 46.4, "year_2024": 48.4 },
+    { "month": "Aug", "baseline": 42.6, "year_2020": 44.0, "year_2022": 45.8, "year_2024": 47.2 },
+    { "month": "Sep", "baseline": 38.9, "year_2020": 40.1, "year_2022": 41.7, "year_2024": 43.5 },
+    { "month": "Oct", "baseline": 32.1, "year_2020": 33.2, "year_2022": 34.8, "year_2024": 36.0 },
+    { "month": "Nov", "baseline": 23.8, "year_2020": 24.6, "year_2022": 25.9, "year_2024": 26.8 },
+    { "month": "Dec", "baseline": 17.5, "year_2020": 18.0, "year_2022": 19.2, "year_2024": 20.1 }
+  ],
+  "metrics": {
+    "historical_mean_c": 30.88,
+    "current_mean_c": 34.70,
+    "mean_delta_c": 3.82,
+    "max_anomaly_c": 4.60,
+    "extreme_heat_days_per_year": 54
+  }
+}

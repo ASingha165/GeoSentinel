@@ -1,0 +1,57 @@
+{
+  "type": "FeatureCollection",
+  "name": "GeoSentinel_Sensor_Clusters",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "cluster_id": "CLUSTER-ALPHA-01",
+        "node_count": 112,
+        "status": "CRITICAL",
+        "avg_temp_c": 45.8,
+        "emissivity": 0.94,
+        "coverage_km2": 18.5
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-112.0800, 33.4800]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cluster_id": "CLUSTER-BETA-02",
+        "node_count": 48,
+        "status": "WARNING",
+        "avg_temp_c": 42.1,
+        "emissivity": 0.92,
+        "coverage_km2": 9.2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-112.1500, 33.4000]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cluster_id": "CLUSTER-GAMMA-03",
+        "node_count": 12,
+        "status": "NOMINAL",
+        "avg_temp_c": 37.4,
+        "emissivity": 0.88,
+        "coverage_km2": 4.1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-112.0200, 33.5500]
+      }
+    }
+  ]
+}

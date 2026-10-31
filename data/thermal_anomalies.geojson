@@ -1,0 +1,80 @@
+{
+  "type": "FeatureCollection",
+  "name": "GeoSentinel_Thermal_Anomalies",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "anomaly_id": "HOTSPOT-PHX-001",
+        "name": "Downtown Commercial Core",
+        "surface_lst_c": 46.2,
+        "delta_baseline_c": 5.4,
+        "severity": "CRITICAL",
+        "sensor": "MODIS_AQUA_LST_v6.1",
+        "radius_meters": 1400,
+        "observation_time": "2026-11-01T00:14:00Z"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-112.0700, 33.4500]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "anomaly_id": "HOTSPOT-PHX-002",
+        "name": "Sky Harbor Runway Corridor",
+        "surface_lst_c": 48.4,
+        "delta_baseline_c": 6.8,
+        "severity": "CRITICAL_PEAK",
+        "sensor": "MODIS_TERRA_LST_v6.1",
+        "radius_meters": 1900,
+        "observation_time": "2026-11-01T00:14:00Z"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-112.0080, 33.4350]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "anomaly_id": "HOTSPOT-PHX-003",
+        "name": "Metrocenter Concrete Basin",
+        "surface_lst_c": 44.1,
+        "delta_baseline_c": 4.1,
+        "severity": "ELEVATED",
+        "sensor": "SENTINEL_2C_TIRS",
+        "radius_meters": 1100,
+        "observation_time": "2026-11-01T00:13:30Z"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-112.1300, 33.5100]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "anomaly_id": "HOTSPOT-PHX-004",
+        "name": "Tempe Industrial Park",
+        "surface_lst_c": 43.7,
+        "delta_baseline_c": 3.9,
+        "severity": "ELEVATED",
+        "sensor": "SENTINEL_2C_TIRS",
+        "radius_meters": 1200,
+        "observation_time": "2026-11-01T00:13:30Z"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-111.9700, 33.3780]
+      }
+    }
+  ]
+}

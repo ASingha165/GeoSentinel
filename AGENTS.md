@@ -347,7 +347,7 @@ Base URL: `http://localhost:8000/api/v1`
       * `.dockerignore`: Created clean build context ignore rules (excluding `.git`, `stitch_*`, caches, and tests).
       * `requirements.txt`: Created root requirements proxy file pointing to `backend/requirements.txt`.
       * `AGENTS.md`: Updated architecture, directory structure, and resolution log.
-    * *Verification Results:* All 14 local Pytest unit tests pass cleanly. Verified through GitHub Actions workflow run [41235547825](https://github.com/ASingha165/GeoSentinel/actions/runs/41235547825) with 100% success across all jobs (Python 3.10, 3.11, 3.12, and Docker Container Build Verification).
+    * *Verification Results:* All 18 local Pytest unit and integration tests pass cleanly. Verified through GitHub Actions workflow runs [41235547825](https://github.com/ASingha165/GeoSentinel/actions/runs/41235547825) and [41238297107](https://github.com/ASingha165/GeoSentinel/actions/runs/41238297107) with 100% success across all matrix jobs (Python 3.10, 3.11, 3.12, and Docker Container Build Verification).
 * **Technical Blockers:** None currently open.
 * **Recent Architectural Decisions:**
   * *ADR-001 (Zero-Credential AWS S3 Access):* Use Botocore `UNSIGNED` mode by default so public Open Data works out-of-the-box without keys.
@@ -373,6 +373,7 @@ Base URL: `http://localhost:8000/api/v1`
   * `69ea031`: Documentation with central `AGENTS.md` development guide.
   * `303fd34`: Documentation structure update aligning with task requirements.
   * `3006ea6`: Resolved recurring Docker Buildx action failure, added `.dockerignore`, root `requirements.txt`, and live container health verification (Run 41235547825 passing).
+  * `786806d`: Integrated authentic S3 Sentinel-2 STAC data stream, dynamic Leaflet map layer rendering from backend APIs, location place search, and expanded test suite to 18 unit and integration tests (GitHub Actions Run [41238297107](https://github.com/ASingha165/GeoSentinel/actions/runs/41238297107) passing across all matrix jobs).
 
 ---
 

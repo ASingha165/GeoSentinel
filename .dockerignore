@@ -1,0 +1,26 @@
+# Git & CI/CD
+.git/
+.github/
+
+# Python Cache & Virtual Environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local Environment & Secrets
+.env
+.env.*
+!.env.example
+
+# Design prototypes & mockups (not needed in container runtime)
+stitch_geosentinel_intelligence_platform/
+
+# Test Suite (production image runtime)
+tests/

@@ -14,8 +14,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
 COPY backend/requirements.txt .
-RUN pip install --no-cache-dir --user -r requirements.txt
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
 
 # Production Final Stage
@@ -25,7 +29,7 @@ WORKDIR /app
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    PATH="/home/geosentinel/.local/bin:${PATH}" \
+    PATH="/opt/venv/bin:${PATH}" \
     PYTHONPATH="/app"
 
 # Install curl for container health check
@@ -36,8 +40,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Create unprivileged application user
 RUN useradd -m -u 1001 -s /bin/bash geosentinel
 
-# Copy installed Python dependencies from builder
-COPY --from=builder --chown=geosentinel:geosentinel /root/.local /home/geosentinel/.local
+# Copy virtual environment from builder
+COPY --from=builder /opt/venv /opt/venv
 
 # Copy application source code
 COPY --chown=geosentinel:geosentinel backend /app/backend

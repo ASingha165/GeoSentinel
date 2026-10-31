@@ -42,12 +42,21 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Docker Buildx
-        uses: actions/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v3
 
       - name: Build Container Image
         uses: docker/build-push-action@v5
         with:
           context: .
           file: docker/Dockerfile
+          load: true
           push: false
           tags: geosentinel:latest
+
+      - name: Verify Container Startup & Health Check
+        run: |
+          docker run -d --name test-geosentinel -p 8000:8000 geosentinel:latest
+          sleep 6
+          docker logs test-geosentinel
+          curl -f http://localhost:8000/api/v1/health
+          docker stop test-geosentinel

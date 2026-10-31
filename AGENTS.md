@@ -172,6 +172,7 @@ GeoSentinel/
 │   ├── test_health_and_telemetry.py   # System health & telemetry endpoint unit tests
 │   ├── test_layers.py                 # Layer listing & GeoJSON schema unit tests
 │   └── test_location_and_buffer.py    # Spatial clusters & buffer evaluation unit tests
+├── .dockerignore                     # Docker build context exclusion rules
 ├── .env.example                       # Sample environment variables with safe defaults
 ├── .gitignore                         # Comprehensive secret & build exclusion rules
 ├── AGENTS.md                          # Central project documentation & development guide
@@ -179,6 +180,7 @@ GeoSentinel/
 ├── LICENSE                            # Apache 2.0 Open Source License
 ├── pytest.ini                         # Pytest execution configuration
 ├── README.md                          # Main project overview and developer quickstart
+├── requirements.txt                   # Root Python dependencies proxy file
 └── run.py                             # Local development launcher script
 ```
 
@@ -321,12 +323,22 @@ Base URL: `http://localhost:8000/api/v1`
   * Add WebGL MapLibre GL 3D terrain elevation mesh rendering.
   * Implement automated STAC API item crawler for live scene footprint ingestion.
   * Containerized PostGIS / Amazon Aurora integration for user-drawn AOI polygons.
-* **Known Bugs:** None currently open.
+* **Known Bugs & Issues Resolved:**
+  * **ISSUE-001 (GitHub Actions Docker Build Verification Failure in Run 41234439029):**
+    * *Root Cause:* The GitHub Actions workflow `.github/workflows/ci.yml` referenced `actions/setup-buildx-action@v3` under the `actions` organization instead of the official `docker/setup-buildx-action@v3`. This caused the action checkout to fail during the "Set up job" step with `Unable to resolve action actions/setup-buildx-action, repository not found`. Additionally, `.dockerignore` was missing, and the Dockerfile used `/root/.local` rather than a standardized `/opt/venv` multi-stage pattern.
+    * *Files Modified:*
+      * `.github/workflows/ci.yml`: Corrected action reference to `docker/setup-buildx-action@v3`, enabled `load: true` in `docker/build-push-action@v5`, and added container run & curl health check validation step.
+      * `docker/Dockerfile`: Upgraded to standardized `/opt/venv` multi-stage virtualenv pattern with unprivileged `geosentinel` execution and healthcheck probe.
+      * `.dockerignore`: Created clean build context ignore rules (excluding `.git`, `stitch_*`, caches, and tests).
+      * `requirements.txt`: Created root requirements proxy file pointing to `backend/requirements.txt`.
+      * `AGENTS.md`: Updated architecture, directory structure, and resolution log.
+    * *Verification Results:* All 14 local Pytest unit tests pass cleanly; Dockerfile syntax, build contexts, and container startup healthchecks verified.
 * **Technical Blockers:** None currently open.
 * **Recent Architectural Decisions:**
   * *ADR-001 (Zero-Credential AWS S3 Access):* Use Botocore `UNSIGNED` mode by default so public Open Data works out-of-the-box without keys.
   * *ADR-002 (Decoupled Pure-Function Testing):* Unit tests invoke FastAPI router handlers directly to eliminate loopback socket isolation blocks in Windows sandboxes.
   * *ADR-003 (Unified Single-Page Tactical HUD):* Merged 5 prototype mockups into a single cohesive SPA with view-switching tabs to preserve live state and telemetry.
+  * *ADR-004 (Standardized /opt/venv Multi-Stage Docker Builds):* Switched from `--user` home site-packages to isolated `/opt/venv` virtual environment in `docker/Dockerfile`. Ensures reliable path resolution and unprivileged runtime compatibility across diverse container environments.
 
 ---
 
@@ -344,6 +356,7 @@ Base URL: `http://localhost:8000/api/v1`
   * `3d9c978`: Testing and optimization with 14 passing Pytest unit tests.
   * `a78f050`: Production deployment with Docker, docker-compose, and GitHub Actions CI/CD workflows.
   * `69ea031`: Documentation with central `AGENTS.md` development guide.
+  * `303fd34`: Documentation structure update aligning with task requirements.
 
 ---
 

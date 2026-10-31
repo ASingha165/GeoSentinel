@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>GeoSentinel | Planetary Intelligence & Earth Observation Platform</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  
+  <!-- Leaflet CSS for Tactical Cartography -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="css/tactical.css"/>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface": "#0e131e",
+            "surface-dim": "#0e131e",
+            "surface-bright": "#343946",
+            "surface-container-lowest": "#090e19",
+            "surface-container-low": "#161b27",
+            "surface-container": "#1b1f2b",
+            "surface-container-high": "#252a36",
+            "surface-container-highest": "#303541",
+            "on-surface": "#dee2f2",
+            "on-surface-variant": "#bbc9ce",
+            "outline": "#859398",
+            "outline-variant": "#3c494d",
+            "primary": "#afecff",
+            "on-primary": "#003641",
+            "primary-container": "#00d9ff",
+            "on-primary-container": "#005b6c",
+            "secondary": "#4edea3",
+            "on-secondary": "#003824",
+            "secondary-container": "#00a572",
+            "on-secondary-container": "#00311f",
+            "tertiary": "#ffddb8",
+            "on-tertiary": "#472a00",
+            "tertiary-container": "#ffb95f",
+            "on-tertiary-container": "#754900",
+            "error": "#ffb4ab",
+            "on-error": "#690005",
+            "error-container": "#93000a",
+            "on-error-container": "#ffdad6"
+          },
+          fontFamily: {
+            "headline-xl": ["Inter", "sans-serif"],
+            "headline-lg": ["Inter", "sans-serif"],
+            "headline-md": ["Inter", "sans-serif"],
+            "headline-sm": ["Inter", "sans-serif"],
+            "body-lg": ["Inter", "sans-serif"],
+            "body-md": ["Inter", "sans-serif"],
+            "body-sm": ["Inter", "sans-serif"],
+            "mono-metric-lg": ["JetBrains Mono", "monospace"],
+            "mono-metric-md": ["JetBrains Mono", "monospace"],
+            "mono-metric-sm": ["JetBrains Mono", "monospace"],
+            "label-caps": ["JetBrains Mono", "monospace"]
+          },
+          spacing: {
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "space-md": "0.75rem",
+            "space-lg": "1rem",
+            "space-xl": "1.5rem",
+            "gutter": "0.75rem"
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-surface font-body-md text-on-surface antialiased select-none">
+
+  <!-- Left Tactical Sidebar -->
+  <aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-low/95 backdrop-blur-xl z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.5)] border-r border-outline-variant/30">
+    <div class="flex flex-col">
+      <!-- Brand & Security Header -->
+      <div class="h-16 px-space-lg flex items-center justify-between bg-surface-container-lowest/60 border-b border-outline-variant/20">
+        <div class="flex items-center gap-space-sm">
+          <div class="w-8 h-8 rounded bg-primary-container/20 border border-primary-container flex items-center justify-center text-primary">
+            <span class="material-symbols-outlined text-[20px]">radar</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-headline-sm text-[16px] text-primary tracking-tight font-bold leading-none">GEOSENTINEL</span>
+            <span class="font-label-caps text-[10px] text-outline leading-tight mt-0.5 tracking-wider">PLANETARY INTELLIGENCE</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container-high border border-outline-variant/30">
+          <span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+          <span class="font-label-caps text-[10px] text-secondary font-medium tracking-wider">US-EAST-1</span>
+        </div>
+      </div>
+
+      <!-- Main Navigation Menu -->
+      <nav class="flex flex-col gap-1 p-space-md">
+        <a href="#command-center" data-path="command-center" aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm rounded transition-all bg-primary-container text-on-primary-container font-semibold">
+          <span class="material-symbols-outlined text-[18px]">terminal</span>
+          <span class="text-body-md">Command Center</span>
+        </a>
+        <a href="#geospatial-explorer" data-path="geospatial-explorer" class="flex items-center gap-space-sm px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all">
+          <span class="material-symbols-outlined text-[18px]">public</span>
+          <span class="text-body-md">Geospatial Explorer</span>
+        </a>
+        <a href="#location-intelligence" data-path="location-intelligence" class="flex items-center gap-space-sm px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all">
+          <span class="material-symbols-outlined text-[18px]">share_location</span>
+          <span class="text-body-md">Location Intelligence</span>
+        </a>
+        <a href="#environmental-analytics" data-path="environmental-analytics" class="flex items-center gap-space-sm px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all">
+          <span class="material-symbols-outlined text-[18px]">nest_eco_leaf</span>
+          <span class="text-body-md">Environmental Analytics</span>
+        </a>
+        <a href="#data-sources" data-path="data-sources" class="flex items-center gap-space-sm px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all">
+          <span class="material-symbols-outlined text-[18px]">dataset</span>
+          <span class="text-body-md">Data Sources & AWS</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Bottom Telemetry HUD Widget -->
+    <div class="p-space-md m-space-md rounded bg-surface-container-lowest/90 border border-outline-variant/30 flex flex-col gap-space-xs">
+      <div class="flex items-center justify-between">
+        <span class="font-label-caps text-[10px] text-outline font-semibold">TELEMETRY HUD</span>
+        <span class="font-mono-metric-sm text-[11px] text-secondary">ACTIVE</span>
+      </div>
+      <div class="grid grid-cols-2 gap-space-xs pt-1 border-t border-outline-variant/20">
+        <div class="flex flex-col">
+          <span class="font-label-caps text-[9px] text-outline">ENGINE</span>
+          <span class="font-mono-metric-sm text-[11px] text-on-surface font-semibold truncate">AMZN LOC / LFLT</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-label-caps text-[9px] text-outline">LATENCY</span>
+          <span class="font-mono-metric-sm text-[11px] text-secondary telemetry-latency font-semibold">24ms</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-label-caps text-[9px] text-outline">HEAP</span>
+          <span class="font-mono-metric-sm text-[11px] text-on-surface font-semibold">142 MB</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-label-caps text-[9px] text-outline">RASTER STACK</span>
+          <span class="font-mono-metric-sm text-[11px] text-primary font-semibold">16 TILES</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Wrapper -->
+  <div class="pl-72">
+    <!-- Top Global Header -->
+    <header class="fixed top-0 left-72 right-0 h-16 bg-surface/90 backdrop-blur-xl z-40 flex items-center justify-between px-space-lg border-b border-outline-variant/30 shadow-md">
+      <!-- Search & Dataset Selector -->
+      <div class="flex items-center gap-space-lg flex-1 max-w-2xl">
+        <div class="relative flex-1">
+          <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
+          <input type="text" class="w-full bg-surface-container-lowest text-on-surface placeholder:text-outline text-body-sm font-mono-metric-sm pl-10 pr-space-md py-1.5 rounded border border-outline-variant/30 focus:outline-none focus:border-primary-container transition-colors" placeholder="Search Lat/Long, City, or Tile ID... [Cmd+K]"/>
+        </div>
+        <div class="relative min-w-[220px]">
+          <select class="w-full bg-surface-container-high text-on-surface text-body-sm font-body-sm px-space-md py-1.5 rounded border border-outline-variant/30 appearance-none cursor-pointer focus:outline-none pr-8">
+            <option>MODIS Land Surface Temp v6.1</option>
+            <option>Sentinel-2 Multispectral (L2A)</option>
+            <option>ERA5 Atmospheric Reanalysis</option>
+            <option>NOAA Urban Heat Island 2024</option>
+          </select>
+          <span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-[16px]">expand_more</span>
+        </div>
+      </div>
+
+      <!-- Live Indicators & Profile -->
+      <div class="flex items-center gap-space-md">
+        <div class="flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container border border-outline-variant/30">
+          <span class="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
+          <span class="font-mono-metric-sm text-[11px] text-secondary font-semibold pass-countdown">Live (T-14s)</span>
+        </div>
+        
+        <div class="flex items-center gap-1">
+          <button id="btn-export-geojson" class="p-1.5 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" title="Export GeoJSON">
+            <span class="material-symbols-outlined text-[20px]">file_download</span>
+          </button>
+          <button class="relative p-1.5 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" title="Alert Center">
+            <span class="material-symbols-outlined text-[20px]">notifications</span>
+            <span class="absolute top-1 right-1 w-4 h-4 rounded-full bg-error text-on-error font-mono-metric-sm text-[10px] leading-none flex items-center justify-center font-bold">3</span>
+          </button>
+        </div>
+
+        <!-- Clearance Profile Badge -->
+        <div class="flex items-center gap-space-sm pl-space-sm bg-surface-container-low px-space-sm py-1 rounded border border-outline-variant/30">
+          <div class="w-7 h-7 rounded-full bg-primary/20 border border-primary flex items-center justify-center text-primary font-bold text-xs">
+            EV
+          </div>
+          <div class="flex flex-col text-left">
+            <div class="flex items-center gap-1">
+              <span class="font-body-sm text-[12px] font-semibold text-on-surface leading-none">Dr. Elena Vance</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+            </div>
+            <span class="font-label-caps text-[9px] text-primary leading-tight mt-0.5">TS/SCI GEOINT</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Sub-Header Tactical HUD Ribbon -->
+    <div class="fixed top-16 left-72 right-0 z-30 bg-surface-container-lowest/80 backdrop-blur-md px-space-lg py-2 border-b border-outline-variant/20 flex flex-wrap items-center justify-between text-xs">
+      <div class="flex items-center gap-space-lg">
+        <div class="flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+          <span class="font-label-caps text-[10px] text-outline uppercase tracking-wider">ORBITAL SYNCHRONIZATION:</span>
+          <span class="font-mono-metric-sm text-[11px] text-primary font-semibold zulu-clock">T-00:00:14 ZULU</span>
+        </div>
+        <div class="h-3 w-px bg-outline-variant/40"></div>
+        <div class="flex items-center gap-1.5">
+          <span class="font-label-caps text-[10px] text-outline uppercase">MISSION PHASE:</span>
+          <span class="font-mono-metric-sm text-[11px] text-secondary">ACTIVE PASS (SENTINEL-2C / MODIS-A)</span>
+        </div>
+        <div class="h-3 w-px bg-outline-variant/40"></div>
+        <div class="flex items-center gap-1.5">
+          <span class="font-label-caps text-[10px] text-outline uppercase">INGEST PIPE:</span>
+          <span class="font-mono-metric-sm text-[11px] text-on-surface font-semibold ingest-eps">2.41k EPS</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-space-sm">
+        <div class="flex items-center gap-1.5 px-space-sm py-0.5 rounded bg-surface-container-high/80 border border-outline-variant/30">
+          <span class="material-symbols-outlined text-[14px] text-outline">tune</span>
+          <span class="font-label-caps text-[10px] text-on-surface-variant">DELTA BASELINE: ERA5 10YR</span>
+        </div>
+        <button id="btn-reindex-aoi" class="px-space-md py-1 rounded bg-primary-container text-on-primary font-body-sm font-semibold flex items-center gap-1 hover:brightness-110 transition-all shadow-sm">
+          <span class="material-symbols-outlined text-[16px]">sync_alt</span>
+          <span>Re-Index AOI</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Operational Canvas / Router Views -->
+    <main class="pt-28 min-h-screen px-space-lg pb-12">
+      
+      <!-- =================================================================== -->
+      <!-- VIEW 1: COMMAND CENTER -->
+      <!-- =================================================================== -->
+      <section id="view-command-center" class="view-container flex flex-col gap-space-lg">
+        <!-- 4 Top Executive KPI Telemetry Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+          <div class="bg-surface-container-low rounded p-space-md border border-outline-variant/30 flex flex-col justify-between">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="font-label-caps text-[10px] text-outline uppercase">Global Monitored Nodes</span>
+                <div class="flex items-baseline gap-2 mt-1">
+                  <span class="font-mono-metric-lg text-2xl text-on-surface font-bold">142,850</span>
+                  <span class="font-label-caps text-xs text-secondary font-semibold">+4.2%</span>
+                </div>
+              </div>
+              <div class="p-2 rounded bg-surface-container-high text-primary">
+                <span class="material-symbols-outlined text-[20px]">hub</span>
+              </div>
+            </div>
+            <div class="mt-space-md flex items-center justify-between pt-space-xs border-t border-outline-variant/20">
+              <span class="font-mono-metric-sm text-[11px] text-outline">Active Clusters: 1,894</span>
+              <span class="font-mono-metric-sm text-[11px] text-secondary">Nominal</span>
+            </div>
+          </div>
+
+          <div class="bg-surface-container-low rounded p-space-md border border-outline-variant/30 flex flex-col justify-between">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="font-label-caps text-[10px] text-outline uppercase">Environmental Hotspots</span>
+                <div class="flex items-baseline gap-2 mt-1">
+                  <span class="font-mono-metric-lg text-2xl text-error font-bold">384</span>
+                  <span class="font-label-caps text-xs text-error font-semibold">+18.5% Δ</span>
+                </div>
+              </div>
+              <div class="p-2 rounded bg-surface-container-high text-error">
+                <span class="material-symbols-outlined text-[20px]">local_fire_department</span>
+              </div>
+            </div>
+            <div class="mt-space-md flex items-center justify-between pt-space-xs border-t border-outline-variant/20">
+              <span class="font-mono-metric-sm text-[11px] text-outline">High Severity: 42</span>
+              <span class="font-mono-metric-sm text-[11px] text-error font-semibold">Elevated</span>
+            </div>
+          </div>
+
+          <div class="bg-surface-container-low rounded p-space-md border border-outline-variant/30 flex flex-col justify-between">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="font-label-caps text-[10px] text-outline uppercase">Avg. Land Surface Temp (LST)</span>
+                <div class="flex items-baseline gap-2 mt-1">
+                  <span class="font-mono-metric-lg text-2xl text-on-surface font-bold">42.8°C</span>
+                  <span class="font-label-caps text-xs text-tertiary-container font-semibold">+4.6°C</span>
+                </div>
+              </div>
+              <div class="p-2 rounded bg-surface-container-high text-tertiary-container">
+                <span class="material-symbols-outlined text-[20px]">thermostat</span>
+              </div>
+            </div>
+            <div class="mt-space-md flex items-center justify-between pt-space-xs border-t border-outline-variant/20">
+              <span class="font-mono-metric-sm text-[11px] text-outline">Sensor: MODIS Aqua/Terra</span>
+              <span class="font-mono-metric-sm text-[11px] text-tertiary-container">Peak 48.4°C</span>
+            </div>
+          </div>
+
+          <div class="bg-surface-container-low rounded p-space-md border border-outline-variant/30 flex flex-col justify-between">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="font-label-caps text-[10px] text-outline uppercase">High-Risk Hazard Zones</span>
+                <div class="flex items-baseline gap-2 mt-1">
+                  <span class="font-mono-metric-lg text-2xl text-primary font-bold">12 AOIs</span>
+                  <span class="font-label-caps text-xs text-secondary font-semibold">Tracked</span>
+                </div>
+              </div>
+              <div class="p-2 rounded bg-surface-container-high text-primary">
+                <span class="material-symbols-outlined text-[20px]">warning</span>
+              </div>
+            </div>
+            <div class="mt-space-md flex items-center justify-between pt-space-xs border-t border-outline-variant/20">
+              <span class="font-mono-metric-sm text-[11px] text-outline">Grid Resolution: 10m MSI</span>
+              <span class="font-mono-metric-sm text-[11px] text-primary">AWS S3 Synced</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Central Operational Workspace (Threat Matrix & Live Stream) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+          <!-- Left 7 cols: Spatial Threat Matrix -->
+          <div class="lg:col-span-7 bg-surface-container-low rounded p-space-md border border-outline-variant/30 flex flex-col gap-space-md">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-[20px]">analytics</span>
+                <span class="font-headline-sm text-sm font-semibold uppercase tracking-wider text-on-surface">Regional Risk Index & Spatial Vectors</span>
+              </div>
+              <span class="font-label-caps text-[11px] text-outline">SECTOR: SOUTHWEST CONUS</span>
+            </div>
+            
+            <!-- Stylized Tactical Vector Spatial Map -->
+            <div class="relative h-64 w-full rounded bg-surface-container-lowest overflow-hidden border border-outline-variant/30">
+              <svg class="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                <pattern id="cc-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#3c494d" stroke-width="0.5" stroke-dasharray="2,2"/>
+                </pattern>
+                <rect width="100%" height="100%" fill="url(#cc-grid)"/>
+                <!-- Thermal Contours -->
+                <circle cx="280" cy="120" r="70" fill="#93000a" fill-opacity="0.35" class="animate-pulse"/>
+                <circle cx="450" cy="180" r="50" fill="#754900" fill-opacity="0.4"/>
+                <circle cx="160" cy="190" r="45" fill="#005b6c" fill-opacity="0.4"/>
+                <!-- Tactical Bounding Polygons -->
+                <polygon points="200,60 380,80 340,210 180,180" fill="#00d9ff" fill-opacity="0.08" stroke="#00d9ff" stroke-width="1.2" stroke-dasharray="4,2"/>
+              </svg>
+              <div class="absolute top-2 left-2 px-2 py-1 bg-surface/80 rounded border border-outline-variant/40 font-mono-metric-sm text-[10px] text-primary">
+                AOI: PHOENIX URBAN CANOPY CORE [33.4484°N, 112.0740°W]
+              </div>
+            </div>
+
+            <!-- 4 Region Breakdown Cards -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-space-xs pt-1">
+              <div class="p-2 bg-surface-container rounded border border-outline-variant/20">
+                <span class="font-label-caps text-[9px] text-outline block">PHOENIX CORE</span>
+                <span class="font-mono-metric-md text-sm text-error font-bold block mt-0.5">46.2°C</span>
+                <span class="font-mono-metric-sm text-[10px] text-error">+5.4°C Δ</span>
+              </div>
+              <div class="p-2 bg-surface-container rounded border border-outline-variant/20">
+                <span class="font-label-caps text-[9px] text-outline block">LAS VEGAS METRO</span>
+                <span class="font-mono-metric-md text-sm text-tertiary-container font-bold block mt-0.5">43.7°C</span>
+                <span class="font-mono-metric-sm text-[10px] text-tertiary-container">+4.1°C Δ</span>
+              </div>
+              <div class="p-2 bg-surface-container rounded border border-outline-variant/20">
+                <span class="font-label-caps text-[9px] text-outline block">IMPERIAL BASIN</span>
+                <span class="font-mono-metric-md text-sm text-tertiary-container font-bold block mt-0.5">44.5°C</span>
+                <span class="font-mono-metric-sm text-[10px] text-tertiary-container">+3.8°C Δ</span>
+              </div>
+              <div class="p-2 bg-surface-container rounded border border-outline-variant/20">
+                <span class="font-label-caps text-[9px] text-outline block">TUCSON FOOTHILLS</span>
+                <span class="font-mono-metric-md text-sm text-secondary font-bold block mt-0.5">38.9°C</span>
+                <span class="font-mono-metric-sm text-[10px] text-secondary">+1.2°C Δ</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right 5 cols: Live Telemetry Stream -->
+          <div class="lg:col-span-5 bg-surface-container-low rounded p-space-md border border-outline-variant/30 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-space-md">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-secondary text-[20px]">rss_feed</span>
+                  <span class="font-headline-sm text-sm font-semibold uppercase tracking-wider text-on-surface">Live Ingest Stream</span>
+                </div>
+                <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+              </div>
+
+              <div class="flex flex-col gap-2 font-mono-metric-sm text-xs">
+                <div class="p-2 rounded bg-surface-container border-l-2 border-error">
+                  <div class="flex justify-between text-[11px] text-outline">
+                    <span>HOTSPOT DETECTED</span>
+                    <span>T-12s</span>
+                  </div>
+                  <div class="text-on-surface font-semibold mt-0.5">Sky Harbor Runway Thermal Peak: 48.4°C</div>
+                  <div class="text-primary text-[10px]">Sensor: MODIS Aqua Granule 20261101</div>
+                </div>
+
+                <div class="p-2 rounded bg-surface-container border-l-2 border-primary">
+                  <div class="flex justify-between text-[11px] text-outline">
+                    <span>SATELLITE PASS SYNC</span>
+                    <span>T-45s</span>
+                  </div>
+                  <div class="text-on-surface font-semibold mt-0.5">Sentinel-2C L2A Multispectral Swath Ingested</div>
+                  <div class="text-secondary text-[10px]">AWS S3 bucket: s3://sentinel-s2-l2a</div>
+                </div>
+
+                <div class="p-2 rounded bg-surface-container border-l-2 border-secondary">
+                  <div class="flex justify-between text-[11px] text-outline">
+                    <span>REANALYSIS RE-BASELINE</span>
+                    <span>T-2m</span>
+                  </div>
+                  <div class="text-on-surface font-semibold mt-0.5">NOAA ERA5 10-Yr Diurnal Delta Calculated</div>
+                  <div class="text-outline text-[10px]">Variance: +4.6°C against 1991-2020 norm</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- AWS Data Pipe Status -->
+            <div class="mt-space-md p-space-sm bg-surface-container-lowest rounded border border-outline-variant/20 flex items-center justify-between text-xs">
+              <span class="text-outline font-label-caps text-[10px]">AWS PIPELINE:</span>
+              <span class="text-secondary font-mono-metric-sm font-semibold">BOTO3 S3 CLIENT CONNECTED</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- VIEW 2: GEOSPATIAL EXPLORER -->
+      <!-- =================================================================== -->
+      <section id="view-geospatial-explorer" class="view-container hidden flex flex-col gap-space-lg">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+          <!-- Main Map Viewport (8 cols) -->
+          <div class="lg:col-span-8 flex flex-col gap-2">
+            <div class="relative h-[620px] w-full rounded bg-surface-container-lowest border border-outline-variant/30 overflow-hidden shadow-2xl">
+              <!-- Leaflet Map Container -->
+              <div id="tactical-map" class="absolute inset-0 w-full h-full z-10"></div>
+
+              <!-- Top-Left Layer Filter Controls -->
+              <div class="absolute top-3 left-3 z-20 flex flex-col gap-1.5 bg-surface-container-low/90 backdrop-blur-md p-2 rounded border border-outline-variant/40 shadow-xl">
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="material-symbols-outlined text-primary text-[16px]">layers</span>
+                  <span class="font-label-caps text-[10px] text-on-surface uppercase font-bold tracking-wider">Raster Overlays</span>
+                </div>
+                <div class="flex flex-wrap gap-1">
+                  <button id="btn-layer-thermal" class="px-2 py-1 rounded bg-primary-container text-on-primary-container font-mono-metric-sm text-[11px] font-semibold flex items-center gap-1 shadow">
+                    <span class="w-1.5 h-1.5 rounded-full bg-on-primary-container animate-pulse"></span>
+                    <span>Thermal IR</span>
+                  </button>
+                  <button class="px-2 py-1 rounded bg-surface-container-high text-primary font-mono-metric-sm text-[11px] flex items-center gap-1">
+                    <span>Heat Index</span>
+                  </button>
+                  <button class="px-2 py-1 rounded bg-surface-container text-outline font-mono-metric-sm text-[11px] flex items-center gap-1">
+                    <span>NDVI Canopy</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Bottom-Right Coordinates & Map Controls -->
+              <div class="absolute bottom-3 right-3 z-20 flex flex-col items-end gap-2">
+                <div class="bg-surface-container-lowest/90 backdrop-blur-md px-3 py-1.5 rounded border border-outline-variant/40 font-mono-metric-sm text-xs text-primary shadow-lg flex items-center gap-3">
+                  <div>LAT: <span id="cursor-lat" class="text-on-surface font-semibold">33.4484° N</span></div>
+                  <div>LNG: <span id="cursor-lng" class="text-on-surface font-semibold">112.0740° W</span></div>
+                  <div>MGRS: <span class="text-secondary font-semibold">12SXE138401</span></div>
+                </div>
+
+                <div class="flex items-center gap-1 bg-surface-container-low/90 backdrop-blur-md p-1 rounded border border-outline-variant/40 shadow-lg">
+                  <button id="btn-zoom-in" class="p-1.5 rounded hover:bg-surface-container text-on-surface" title="Zoom In">
+                    <span class="material-symbols-outlined text-[18px]">add</span>
+                  </button>
+                  <button id="btn-zoom-out" class="p-1.5 rounded hover:bg-surface-container text-on-surface" title="Zoom Out">
+                    <span class="material-symbols-outlined text-[18px]">remove</span>
+                  </button>
+                  <button id="btn-reset-view" class="p-1.5 rounded hover:bg-surface-container text-on-surface" title="Reset AOI View">
+                    <span class="material-symbols-outlined text-[18px]">crop_free</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sector Inspector & Telemetry Sidebar (4 cols) -->
+          <div class="lg:col-span-4 bg-surface-container-low rounded p-space-md border border-outline-variant/30 flex flex-col gap-space-md">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="font-label-caps text-[11px] text-outline font-semibold">SECTOR INSPECTOR</span>
+                <span class="px-2 py-0.5 rounded bg-error/20 border border-error text-error text-[10px] font-mono-metric-sm font-bold">LEVEL 4 HEAT ADVISORY</span>
+              </div>
+              <h3 class="font-headline-sm text-lg font-bold text-on-surface mt-1">Downtown Phoenix Core</h3>
+              <p class="font-body-sm text-xs text-on-surface-variant">Central commercial district with severe urban heat island effect and extreme surface emissivity.</p>
+            </div>
+
+            <!-- Big Temperature Hero Display -->
+            <div class="p-space-md rounded bg-surface-container-lowest border border-outline-variant/20 flex items-center justify-between">
+              <div>
+                <span class="font-label-caps text-[10px] text-outline uppercase">Measured Surface LST</span>
+                <div class="text-3xl font-mono-metric-lg font-bold text-error mt-0.5">46.2°C</div>
+                <span class="text-xs text-outline font-mono-metric-sm">115.2°F (MODIS v6.1)</span>
+              </div>
+              <div class="text-right">
+                <span class="font-label-caps text-[10px] text-outline uppercase">Baseline Delta</span>
+                <div class="text-2xl font-mono-metric-lg font-bold text-tertiary-container mt-0.5">+5.4°C</div>
+                <span class="text-xs text-secondary font-mono-metric-sm">vs 10yr ERA5</span>
+              </div>
+            </div>
+
+            <!-- Diurnal Cycle Sparkline -->
+            <div class="flex flex-col gap-1">
+              <span class="font-label-caps text-[10px] text-outline uppercase font-semibold">24-Hour Diurnal Cycle</span>
+              <div class="h-24 w-full bg-surface-container-lowest rounded p-2 border border-outline-variant/20">
+                <svg class="w-full h-full" viewBox="0 0 300 80">
+                  <path d="M 0,65 Q 75,60 150,15 T 300,55" fill="none" stroke="#ffb4ab" stroke-width="2"/>
+                  <path d="M 0,65 Q 75,60 150,15 T 300,55 L 300,80 L 0,80 Z" fill="#93000a" fill-opacity="0.2"/>
+                  <circle cx="150" cy="15" r="4" fill="#ffb4ab"/>
+                  <text x="155" y="18" fill="#ffb4ab" font-size="9" font-family="JetBrains Mono">Peak 14:00Z</text>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Micro-Climate Telemetry Table -->
+            <div class="grid grid-cols-2 gap-space-xs text-xs font-mono-metric-sm">
+              <div class="p-2 rounded bg-surface-container border border-outline-variant/20">
+                <span class="text-outline text-[10px] block">CANOPY COVER:</span>
+                <span class="text-on-surface font-semibold text-sm">4.2%</span>
+              </div>
+              <div class="p-2 rounded bg-surface-container border border-outline-variant/20">
+                <span class="text-outline text-[10px] block">ALBEDO INDEX:</span>
+                <span class="text-on-surface font-semibold text-sm">0.14</span>
+              </div>
+              <div class="p-2 rounded bg-surface-container border border-outline-variant/20">
+                <span class="text-outline text-[10px] block">POPULATION:</span>
+                <span class="text-on-surface font-semibold text-sm">184,200</span>
+              </div>
+              <div class="p-2 rounded bg-surface-container border border-outline-variant/20">
+                <span class="text-outline text-[10px] block">IMPERVIOUS:</span>
+                <span class="text-error font-semibold text-sm">82.6%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- VIEW 3: LOCATION INTELLIGENCE -->
+      <!-- =================================================================== -->
+      <section id="view-location-intelligence" class="view-container hidden flex flex-col gap-space-lg">
+        <div class="bg-surface-container-low rounded p-space-md border border-outline-variant/30 flex items-center justify-between">
+          <div class="flex items-center gap-space-md">
+            <div class="w-12 h-12 rounded bg-primary-container/20 border border-primary-container flex items-center justify-center text-primary font-mono font-bold text-lg">
+              74
+            </div>
+            <div>
+              <span class="font-label-caps text-[10px] text-outline uppercase font-semibold">TARGET DOSSIER: AOI-PHX-01</span>
+              <h2 class="font-headline-md text-xl font-bold text-on-surface">Phoenix Metropolitan Core (Sector Alpha)</h2>
+              <span class="font-mono-metric-sm text-xs text-secondary">33.4484° N, 112.0740° W • Maricopa County, AZ</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-space-sm">
+            <button class="px-space-md py-1.5 rounded bg-surface-container-high text-on-surface font-mono-metric-sm text-xs hover:bg-surface-container-highest transition-colors">
+              Buffer 5km
+            </button>
+            <button class="px-space-md py-1.5 rounded bg-primary-container text-on-primary font-mono-metric-sm text-xs font-semibold hover:brightness-110 transition-all">
+              Generate Vulnerability Report
+            </button>
+          </div>
+        </div>
+
+        <!-- Multi-Radius Buffer Analysis & Infrastructure Proximity -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+          <div class="lg:col-span-7 bg-surface-container-low rounded p-space-md border border-outline-variant/30 flex flex-col gap-space-md">
+            <span class="font-label-caps text-[11px] text-outline font-semibold uppercase">Multi-Year Comparative Warming Anomaly (2020 - 2024)</span>
+            <div class="h-64 w-full bg-surface-container-lowest rounded p-space-md border border-outline-variant/20">
+              <svg class="w-full h-full" viewBox="0 0 500 200">
+                <line x1="40" y1="160" x2="480" y2="160" stroke="#3c494d" stroke-width="1"/>
+                <line x1="40" y1="100" x2="480" y2="100" stroke="#3c494d" stroke-width="0.5" stroke-dasharray="2,2"/>
+                <line x1="40" y1="40" x2="480" y2="40" stroke="#3c494d" stroke-width="0.5" stroke-dasharray="2,2"/>
+                <!-- 2020 Line (Baseline) -->
+                <path d="M 50,150 L 150,140 L 250,110 L 350,90 L 450,130" fill="none" stroke="#859398" stroke-width="1.5" stroke-dasharray="4,2"/>
+                <!-- 2022 Line (Warm) -->
+                <path d="M 50,140 L 150,120 L 250,85 L 350,70 L 450,115" fill="none" stroke="#ffb95f" stroke-width="1.5"/>
+                <!-- 2024 Line (Severe Peak) -->
+                <path d="M 50,130 L 150,95 L 250,50 L 350,30 L 450,80" fill="none" stroke="#ffb4ab" stroke-width="2.5"/>
+                <circle cx="350" cy="30" r="5" fill="#ffb4ab"/>
+                <text x="360" y="34" fill="#ffb4ab" font-size="10" font-family="JetBrains Mono">Jul 2024: 48.4°C</text>
+              </svg>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 bg-surface-container-low rounded p-space-md border border-outline-variant/30 flex flex-col gap-space-md">
+            <span class="font-label-caps text-[11px] text-outline font-semibold uppercase">Critical Infrastructure Proximity (5km Buffer)</span>
+            <div class="flex flex-col gap-2 font-mono-metric-sm text-xs">
+              <div class="p-2 rounded bg-surface-container flex items-center justify-between border-l-2 border-error">
+                <div>
+                  <div class="text-on-surface font-semibold">Phoenix Sky Harbor Int'l</div>
+                  <div class="text-[10px] text-outline">Runway Concrete Thermal Sink</div>
+                </div>
+                <div class="text-right">
+                  <span class="text-error font-bold">1.2 km</span>
+                  <div class="text-[10px] text-error font-semibold">SEVERE</div>
+                </div>
+              </div>
+
+              <div class="p-2 rounded bg-surface-container flex items-center justify-between border-l-2 border-tertiary-container">
+                <div>
+                  <div class="text-on-surface font-semibold">Banner Health University Medical</div>
+                  <div class="text-[10px] text-outline">Healthcare Critical Facility</div>
+                </div>
+                <div class="text-right">
+                  <span class="text-tertiary-container font-bold">2.8 km</span>
+                  <div class="text-[10px] text-tertiary-container font-semibold">ELEVATED</div>
+                </div>
+              </div>
+
+              <div class="p-2 rounded bg-surface-container flex items-center justify-between border-l-2 border-secondary">
+                <div>
+                  <div class="text-on-surface font-semibold">Maricopa County Cooling Centers (4x)</div>
+                  <div class="text-[10px] text-outline">Emergency Public Shelters</div>
+                </div>
+                <div class="text-right">
+                  <span class="text-secondary font-bold">0.8 km</span>
+                  <div class="text-[10px] text-secondary font-semibold">ACTIVE</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- VIEW 4: ENVIRONMENTAL ANALYTICS -->
+      <!-- =================================================================== -->
+      <section id="view-environmental-analytics" class="view-container hidden flex flex-col gap-space-lg">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+          <!-- Anomaly Histogram & Distribution -->
+          <div class="lg:col-span-7 bg-surface-container-low rounded p-space-md border border-outline-variant/30 flex flex-col gap-space-md">
+            <div class="flex items-center justify-between">
+              <span class="font-label-caps text-[11px] text-outline font-semibold uppercase">Surface LST Gaussian Distribution vs 30-Yr Climatology</span>
+              <span class="font-mono-metric-sm text-[10px] text-secondary">MODIS v6.1 • 1km Gridded</span>
+            </div>
+            <div class="h-64 w-full bg-surface-container-lowest rounded p-space-md border border-outline-variant/20">
+              <svg class="w-full h-full" viewBox="0 0 500 200">
+                <!-- Historic Climatology Curve -->
+                <path d="M 50,180 Q 200,30 350,180" fill="none" stroke="#3c494d" stroke-width="2" stroke-dasharray="4,3"/>
+                <!-- Current Anomalous Curve shifted right (+3 Sigma) -->
+                <path d="M 120,180 Q 300,15 460,180" fill="none" stroke="#00d9ff" stroke-width="2.5"/>
+                <path d="M 120,180 Q 300,15 460,180 Z" fill="#00d9ff" fill-opacity="0.15"/>
+                <line x1="300" y1="15" x2="300" y2="180" stroke="#00d9ff" stroke-width="1" stroke-dasharray="2,2"/>
+                <text x="305" y="40" fill="#00d9ff" font-size="10" font-family="JetBrains Mono">Current Mean: 42.8°C</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Multi-Factor Environmental Correlation Matrix -->
+          <div class="lg:col-span-5 bg-surface-container-low rounded p-space-md border border-outline-variant/30 flex flex-col gap-space-md">
+            <span class="font-label-caps text-[11px] text-outline font-semibold uppercase">Environmental Cross-Correlation Matrix</span>
+            <div class="flex flex-col gap-1 text-xs font-mono-metric-sm">
+              <div class="grid grid-cols-4 gap-1 text-center font-bold text-outline text-[10px] pb-1">
+                <div>FACTOR</div>
+                <div>LST TEMP</div>
+                <div>ALBEDO</div>
+                <div>CANOPY</div>
+              </div>
+              <div class="grid grid-cols-4 gap-1 p-1.5 bg-surface-container rounded text-center">
+                <span class="text-left font-bold text-primary">LST Temp</span>
+                <span class="text-on-surface">1.00</span>
+                <span class="text-error">-0.72</span>
+                <span class="text-error">-0.88</span>
+              </div>
+              <div class="grid grid-cols-4 gap-1 p-1.5 bg-surface-container rounded text-center">
+                <span class="text-left font-bold text-secondary">Tree Canopy</span>
+                <span class="text-error">-0.88</span>
+                <span class="text-secondary">+0.64</span>
+                <span class="text-on-surface">1.00</span>
+              </div>
+              <div class="grid grid-cols-4 gap-1 p-1.5 bg-surface-container rounded text-center">
+                <span class="text-left font-bold text-tertiary-container">Impervious</span>
+                <span class="text-error">+0.81</span>
+                <span class="text-error">-0.55</span>
+                <span class="text-error">-0.79</span>
+              </div>
+            </div>
+
+            <!-- FastAPI Integration Snippet -->
+            <div class="mt-space-md p-space-sm bg-surface-container-lowest rounded border border-outline-variant/20">
+              <span class="text-[10px] font-label-caps text-outline block mb-1">FASTAPI ENDPOINT INTEGRATION:</span>
+              <pre class="text-[11px] text-primary font-mono overflow-x-auto p-1 bg-surface-container rounded">curl -X GET "http://localhost:8000/api/v1/environmental/summary?aoi=phoenix"</pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- VIEW 5: DATA SOURCES & AWS INTEGRATION -->
+      <!-- =================================================================== -->
+      <section id="view-data-sources" class="view-container hidden flex flex-col gap-space-lg">
+        <!-- Pipeline Diagram -->
+        <div class="bg-surface-container-low rounded p-space-md border border-outline-variant/30 flex flex-col gap-space-md">
+          <div class="flex items-center justify-between">
+            <span class="font-label-caps text-[11px] text-outline font-semibold uppercase">Cloud-Native Architecture & AWS Open Data Stream</span>
+            <span class="font-mono-metric-sm text-[11px] text-secondary">4 CONNECTORS ACTIVE</span>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-space-xs text-xs font-mono-metric-sm">
+            <div class="p-3 rounded bg-surface-container border border-outline-variant/20 flex flex-col justify-between">
+              <span class="text-[9px] text-outline">NODE 01</span>
+              <div class="font-bold text-on-surface mt-1">Satellite Ingest</div>
+              <span class="text-[10px] text-primary">Sentinel-2 & MODIS</span>
+            </div>
+            <div class="p-3 rounded bg-surface-container border border-primary/40 flex flex-col justify-between">
+              <span class="text-[9px] text-primary">NODE 02</span>
+              <div class="font-bold text-primary mt-1">AWS S3 Open Data</div>
+              <span class="text-[10px] text-outline">s3://sentinel-s2-l2a</span>
+            </div>
+            <div class="p-3 rounded bg-surface-container border border-outline-variant/20 flex flex-col justify-between">
+              <span class="text-[9px] text-outline">NODE 03</span>
+              <div class="font-bold text-on-surface mt-1">AWS Lambda ETL</div>
+              <span class="text-[10px] text-secondary">EventBridge Triggered</span>
+            </div>
+            <div class="p-3 rounded bg-surface-container border border-outline-variant/20 flex flex-col justify-between">
+              <span class="text-[9px] text-outline">NODE 04</span>
+              <div class="font-bold text-on-surface mt-1">Amazon Location</div>
+              <span class="text-[10px] text-primary">Geofencing & Routes</span>
+            </div>
+            <div class="p-3 rounded bg-surface-container border border-secondary/40 flex flex-col justify-between">
+              <span class="text-[9px] text-secondary">NODE 05</span>
+              <div class="font-bold text-secondary mt-1">FastAPI Backend</div>
+              <span class="text-[10px] text-on-surface">Spatial Engine</span>
+            </div>
+            <div class="p-3 rounded bg-surface-container border border-outline-variant/20 flex flex-col justify-between">
+              <span class="text-[9px] text-outline">NODE 06</span>
+              <div class="font-bold text-on-surface mt-1">Client HUD</div>
+              <span class="text-[10px] text-secondary">MapLibre / Leaflet</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inventory Table -->
+        <div class="bg-surface-container-low rounded p-space-md border border-outline-variant/30 flex flex-col gap-space-md">
+          <span class="font-label-caps text-[11px] text-outline font-semibold uppercase">Active Earth Observation S3 Buckets</span>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left font-mono-metric-sm text-xs border-collapse">
+              <thead>
+                <tr class="border-b border-outline-variant/30 text-outline text-[10px]">
+                  <th class="py-2 px-3">DATASET NAME</th>
+                  <th class="py-2 px-3">S3 BUCKET / URI</th>
+                  <th class="py-2 px-3">PROVIDER</th>
+                  <th class="py-2 px-3">STATUS</th>
+                  <th class="py-2 px-3">LATENCY</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-outline-variant/20">
+                <tr>
+                  <td class="py-2.5 px-3 font-semibold text-on-surface">MODIS Land Surface Temp v6.1</td>
+                  <td class="py-2.5 px-3 text-primary">s3://modis-pds</td>
+                  <td class="py-2.5 px-3 text-on-surface-variant">NASA LP DAAC</td>
+                  <td class="py-2.5 px-3 text-secondary font-bold">SYNCHRONIZED</td>
+                  <td class="py-2.5 px-3 text-outline">42ms</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 px-3 font-semibold text-on-surface">Sentinel-2 L2A Multispectral</td>
+                  <td class="py-2.5 px-3 text-primary">s3://sentinel-s2-l2a</td>
+                  <td class="py-2.5 px-3 text-on-surface-variant">ESA / AWS Open Data</td>
+                  <td class="py-2.5 px-3 text-secondary font-bold">STREAMING</td>
+                  <td class="py-2.5 px-3 text-outline">68ms</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 px-3 font-semibold text-on-surface">NOAA HRRR / ERA5 Reanalysis</td>
+                  <td class="py-2.5 px-3 text-primary">s3://noaa-hrrr-bdp-pds</td>
+                  <td class="py-2.5 px-3 text-on-surface-variant">NOAA Big Data Program</td>
+                  <td class="py-2.5 px-3 text-secondary font-bold">SYNCHRONIZED</td>
+                  <td class="py-2.5 px-3 text-outline">31ms</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 px-3 font-semibold text-on-surface">Landsat 8-9 Surface Reflectance</td>
+                  <td class="py-2.5 px-3 text-primary">s3://landsat-pds</td>
+                  <td class="py-2.5 px-3 text-on-surface-variant">USGS / AWS Registry</td>
+                  <td class="py-2.5 px-3 text-tertiary-container font-bold">STANDBY</td>
+                  <td class="py-2.5 px-3 text-outline">55ms</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Leaflet Library -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- Application Bundle -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

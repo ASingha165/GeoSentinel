@@ -1,0 +1,117 @@
+/* GeoSentinel Tactical HUD Stylesheet */
+
+@layer base {
+  html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #0e131e;
+    color: #dee2f2;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    overflow-x: hidden;
+  }
+  
+  body {
+    overscroll-behavior: none;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Custom scrollbars for tactical look */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #090e19;
+}
+::-webkit-scrollbar-thumb {
+  background: #252a36;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3c494d;
+}
+
+/* Tactical HUD Reticles & Glows */
+.hud-glass {
+  background: rgba(14, 19, 30, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(60, 73, 77, 0.4);
+}
+
+.hud-panel {
+  background: #161b27;
+  border: 1px solid rgba(60, 73, 77, 0.5);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+.hud-border-cyan {
+  border-color: #00d9ff;
+  box-shadow: 0 0 15px rgba(0, 217, 255, 0.15);
+}
+
+.hud-border-coral {
+  border-color: #ffb4ab;
+  box-shadow: 0 0 15px rgba(255, 180, 171, 0.15);
+}
+
+.hud-border-emerald {
+  border-color: #4edea3;
+  box-shadow: 0 0 15px rgba(78, 222, 163, 0.15);
+}
+
+/* Scanline and graticule patterns */
+.scanline-bg {
+  background: linear-gradient(
+    rgba(14, 19, 30, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.03),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.03)
+  );
+  background-size: 100% 4px, 6px 100%;
+}
+
+/* Pulse Animations */
+@keyframes radar-sweep {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-radar {
+  animation: radar-sweep 6s linear infinite;
+}
+
+@keyframes thermal-flicker {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 0.4; }
+}
+
+.animate-thermal {
+  animation: thermal-flicker 3s ease-in-out infinite;
+}
+
+/* Leaflet dark theme customizations */
+.leaflet-container {
+  background: #090e19 !important;
+  font-family: 'Inter', sans-serif !important;
+}
+
+.leaflet-popup-content-wrapper {
+  background: #161b27 !important;
+  color: #dee2f2 !important;
+  border: 1px solid #3c494d !important;
+  border-radius: 4px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6) !important;
+}
+
+.leaflet-popup-tip {
+  background: #161b27 !important;
+  border: 1px solid #3c494d !important;
+}

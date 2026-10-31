@@ -8,10 +8,11 @@ from __future__ import annotations
 
 import os
 from typing import List
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=".env", extra="allow")
     APP_NAME: str = "GeoSentinel"
     APP_VERSION: str = "1.0.0"
     ENVIRONMENT: str = "development"
@@ -47,10 +48,6 @@ class Settings(BaseSettings):
 
     # Ingestion & Telemetry Rates
     SIMULATED_INGESTION_RATE: int = 2410
-
-    class Config:
-        env_file = ".env"
-        extra = "allow"
 
 
 settings = Settings()

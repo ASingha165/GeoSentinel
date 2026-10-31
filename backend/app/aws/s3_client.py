@@ -50,16 +50,28 @@ class AwsS3Client:
 
         try:
             if self.use_anonymous or not self.access_key or self.access_key.startswith("your_"):
-                # Configure unsigned requests for AWS Open Data public buckets
-                config = Config(signature_version=UNSIGNED, region_name=self.region_name)
+                # Configure unsigned requests for AWS Open Data public buckets with quick timeout fallback
+                config = Config(
+                    signature_version=UNSIGNED,
+                    region_name=self.region_name,
+                    connect_timeout=1,
+                    read_timeout=1,
+                    retries={"max_attempts": 0}
+                )
                 self._client = boto3.client("s3", config=config)
                 logger.info("Initialized AWS S3 client in UNSIGNED mode (public Open Data).")
             else:
+                config = Config(
+                    connect_timeout=1,
+                    read_timeout=1,
+                    retries={"max_attempts": 0}
+                )
                 self._client = boto3.client(
                     "s3",
                     region_name=self.region_name,
                     aws_access_key_id=self.access_key,
-                    aws_secret_access_key=self.secret_key
+                    aws_secret_access_key=self.secret_key,
+                    config=config
                 )
                 logger.info("Initialized AWS S3 client with configured IAM credentials.")
         except Exception as e:

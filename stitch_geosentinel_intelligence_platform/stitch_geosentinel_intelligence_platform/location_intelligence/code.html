@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "primary-container": "#00d9ff", "on-error": "#690005", "outline-variant": "#3c494d", "surface-container-lowest": "#090e19", "on-tertiary-fixed": "#2a1700", "background": "#0e131e", "secondary-fixed-dim": "#4edea3", "primary-fixed-dim": "#00d9ff", "on-tertiary-fixed-variant": "#653e00", "surface-container": "#1b1f2b", "surface-tint": "#00d9ff", "tertiary-fixed-dim": "#ffb95f", "on-secondary-fixed": "#002113", "on-error-container": "#ffdad6", "on-primary": "#003641", "secondary-fixed": "#6ffbbe", "on-surface": "#dee2f2", "surface-dim": "#0e131e", "tertiary": "#ffddb8", "on-tertiary-container": "#754900", "inverse-surface": "#dee2f2", "on-secondary-container": "#00311f", "secondary": "#4edea3", "on-primary-container": "#005b6c", "error": "#ffb4ab", "tertiary-container": "#ffb95f", "outline": "#859398", "surface-variant": "#303541", "surface": "#0e131e", "secondary-container": "#00a572", "on-secondary-fixed-variant": "#005236", "surface-container-highest": "#303541", "on-background": "#dee2f2", "error-container": "#93000a", "tertiary-fixed": "#ffddb8", "inverse-primary": "#00687b", "on-surface-variant": "#bbc9ce", "surface-container-high": "#252a36", "surface-container-low": "#161b27", "on-tertiary": "#472a00", "primary": "#afecff", "inverse-on-surface": "#2b303d", "surface-bright": "#343946", "on-secondary": "#003824", "on-primary-fixed-variant": "#004e5d", "on-primary-fixed": "#001f26", "primary-fixed": "#aeecff" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "gutter": "0.75rem", "space-md": "0.75rem", "space-lg": "1rem", "space-xl": "1.5rem", "margin": "1rem", "space-sm": "0.5rem", "space-xs": "0.25rem" }, "fontFamily": { "mono-metric-lg": [ "JetBrains Mono" ], "body-lg": [ "Inter" ], "mono-metric-md": [ "JetBrains Mono" ], "mono-metric-sm": [ "JetBrains Mono" ], "headline-xl": [ "Inter" ], "body-md": [ "Inter" ], "label-caps": [ "JetBrains Mono" ], "headline-lg": [ "Inter" ], "body-sm": [ "Inter" ], "headline-md": [ "Inter" ], "headline-sm": [ "Inter" ] }, "fontSize": { "mono-metric-lg": [ "22px", { "lineHeight": "28px", "letterSpacing": "-0.02em", "fontWeight": "500" } ], "body-lg": [ "15px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" } ], "mono-metric-md": [ "14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "500" } ], "mono-metric-sm": [ "11px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" } ], "headline-xl": [ "32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" } ], "body-md": [ "13px", { "lineHeight": "18px", "letterSpacing": "0.005em", "fontWeight": "400" } ], "label-caps": [ "10px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "600" } ], "headline-lg": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "body-sm": [ "12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400" } ], "headline-md": [ "20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "headline-sm": [ "16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600" } ] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-low/95 backdrop-blur-xl z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.3)]"><div class="flex flex-col"><div class="h-16 px-space-lg flex items-center justify-between bg-surface-container-lowest/40"><div class="flex items-center gap-space-sm"><img alt="GeoSentinel Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XjECwVoIEnxw1mPMHPgnvRTTUg8UzdJp3F4niwkaiunSMGcqA0mA5c7W9s4MkR_WEZwDnaZRyEYl_nxwonTVZgUoYX9Sjs2fvzj50aT6JtoBJsRnGv8_5OZbb-cMV5mEhx-OAcg3CLKlyCntM4qLApBoe5fLYkLG5Elz9oO2qzYza3Ea23vDJIJR1EH73Tlvr9A5T7ZCnTFgfk8g-Fe9zp7BpYQ6jp_LJoxC1d9S9n-g"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary tracking-tight leading-none">GEOSENTINEL</span><span class="font-label-caps text-label-caps text-outline leading-tight mt-0.5">PLANETARY INTELLIGENCE</span></div></div><div class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container-high"><span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span><span class="font-label-caps text-label-caps text-secondary font-medium">US-EAST-1</span></div></div><nav class="flex flex-col gap-1 p-space-md" data-active-classes="bg-primary-container text-on-primary-container font-semibold"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="command-center" href="#"><span class="material-symbols-outlined text-[18px]">terminal</span><span class="font-body-md text-body-md">Command Center</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="geospatial-explorer" href="#"><span class="material-symbols-outlined text-[18px]">public</span><span class="font-body-md text-body-md">Geospatial Explorer</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm rounded transition-all bg-primary-container text-on-primary-container font-semibold" data-path="location-intelligence" href="#"><span class="material-symbols-outlined text-[18px]">share_location</span><span class="font-body-md text-body-md">Location Intelligence</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="environmental-analytics" href="#"><span class="material-symbols-outlined text-[18px]">nest_eco_leaf</span><span class="font-body-md text-body-md">Environmental Analytics</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="data-sources" href="#"><span class="material-symbols-outlined text-[18px]">dataset</span><span class="font-body-md text-body-md">Data Sources</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="settings" href="#"><span class="material-symbols-outlined text-[18px]">tune</span><span class="font-body-md text-body-md">Settings</span></a></nav></div><div class="p-space-md m-space-md rounded bg-surface-container-lowest/80 flex flex-col gap-space-xs"><div class="flex items-center justify-between"><span class="font-label-caps text-label-caps text-outline">TELEMETRY HUD</span><span class="font-mono-metric-sm text-mono-metric-sm text-secondary">MAPLIBRE GL</span></div><div class="grid grid-cols-2 gap-space-xs pt-1"><div class="flex flex-col"><span class="font-label-caps text-label-caps text-outline">ENGINE</span><span class="font-mono-metric-sm text-mono-metric-sm text-on-surface truncate">AMZN LOC</span></div><div class="flex flex-col"><span class="font-label-caps text-label-caps text-outline">LATENCY</span><span class="font-mono-metric-sm text-mono-metric-sm text-secondary">24ms</span></div><div class="flex flex-col"><span class="font-label-caps text-label-caps text-outline">HEAP</span><span class="font-mono-metric-sm text-mono-metric-sm text-on-surface">142 MB</span></div><div class="flex flex-col"><span class="font-label-caps text-label-caps text-outline">RASTER STACK</span><span class="font-mono-metric-sm text-mono-metric-sm text-primary">16 TILES</span></div></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface/85 backdrop-blur-xl z-40 flex items-center justify-between px-space-lg shadow-[0_1px_8px_rgba(0,0,0,0.25)]"><div class="flex items-center gap-space-lg flex-1 max-w-2xl"><div class="relative flex-1"><span class="material-symbols-outlined absolute left-space-md top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span><input class="w-full bg-surface-container-lowest text-on-surface placeholder:text-outline text-body-sm font-mono-metric-sm pl-10 pr-space-md py-1.5 rounded focus:outline-none focus:bg-surface-container-high transition-colors" placeholder="Search Lat/Long, City, or Tile ID... [Cmd+K]" type="text"/></div><div class="relative min-w-[220px]"><select class="w-full bg-surface-container-high text-on-surface text-body-sm font-body-sm px-space-md py-1.5 rounded appearance-none cursor-pointer focus:outline-none pr-8"><option>MODIS Land Surface Temp v6.1</option><option>Sentinel-2 Multispectral</option><option>ERA5 Atmospheric Reanalysis</option><option>NOAA Urban Heat Island 2024</option></select><span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-[16px]">expand_more</span></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container"><span class="w-2 h-2 rounded-full bg-secondary animate-ping"></span><span class="font-mono-metric-sm text-mono-metric-sm text-secondary">Live (T-14s)</span></div><div class="flex items-center gap-1"><button class="p-1.5 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" title="Layer Presets" type="button"><span class="material-symbols-outlined text-[20px]">layers</span></button><button class="p-1.5 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" title="Export GeoJSON" type="button"><span class="material-symbols-outlined text-[20px]">file_download</span></button><button class="relative p-1.5 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" title="Alert Center" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-4 h-4 rounded-full bg-error text-on-error font-mono-metric-sm text-[10px] leading-none flex items-center justify-center font-bold">3</span></button></div><div class="flex items-center gap-space-sm pl-space-sm bg-surface-container-low px-space-sm py-1 rounded"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnNTq7ILB6lJQVM_9KyLeEwRRFLrTLjH0KhrRDHiNDeAXIcoY3yPz7d1TMLTK0fx6-9wHRl4yj_kvlTljAMjEW2JvmJ0zNAxZ-ya98a3imFEONoFaiBIKhrnq3f7eWR1CdyqpsD797K99LLQUb_wQcHo5pL6C5P-d02jhye-de85YTpVDKP8F14wb7omVoUzbTUVH_Nfm9JQV85kZONlHB1vXpBe1z3UD-3zDtiqGc"/><div class="flex flex-col text-left"><div class="flex items-center gap-1"><span class="font-body-sm text-body-sm font-semibold text-on-surface leading-none">Dr. Elena Vance</span><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span></div><span class="font-label-caps text-label-caps text-primary leading-tight mt-0.5">TS/SCI GEOINT</span></div></div></div></header><main class="relative pt-16 bg-surface min-h-screen w-full px-space-lg"><div class="flex flex-col w-full pb-16">
+<!-- Top Ambient Glow Field -->
+<div class="relative w-full overflow-hidden mb-space-lg">
+<div class="absolute -top-24 -left-12 w-96 h-96 bg-primary-container/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute top-1/2 right-12 w-80 h-80 bg-error/10 rounded-full blur-3xl pointer-events-none"></div>
+<!-- 1. Target Coordinate Dossier Header -->
+<div class="relative bg-surface-container-low rounded-xl p-space-lg shadow-xl">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md pb-space-md">
+<div class="flex flex-col gap-1 min-w-0">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="px-2 py-0.5 rounded bg-error-container text-on-error-container font-label-caps text-label-caps tracking-widest uppercase flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-ping"></span>
+              CLASS 4A SEVERITY
+            </span>
+<span class="font-mono-metric-sm text-mono-metric-sm text-secondary bg-surface-container px-2 py-0.5 rounded flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">satellite_alt</span>
+              SENTINEL-2 / ECOSTRESS ORBIT SYNC
+            </span>
+<span class="font-mono-metric-sm text-mono-metric-sm text-outline">ORBIT PASS #4192 [L+00:14:02]</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight truncate mt-1">
+            Bakersfield Central Industrial Valley, California
+          </h1>
+<div class="flex items-center gap-3 text-on-surface-variant font-mono-metric-sm text-mono-metric-sm flex-wrap mt-0.5">
+<span class="text-primary font-semibold">35.3733° N, 119.0187° W</span>
+<span class="text-outline">/</span>
+<span>UTM 11S 316500E 3916200N</span>
+<span class="text-outline">/</span>
+<span>H3: <span class="text-on-surface">8829b685c1fffff</span></span>
+<span class="text-outline">/</span>
+<span>ELEV: 123m ASL</span>
+</div>
+</div>
+<!-- Composite Score Ring -->
+<div class="flex items-center gap-space-lg bg-surface-container p-space-md rounded-lg self-start lg:self-auto shrink-0 shadow-sm">
+<div class="relative w-16 h-16 flex items-center justify-center">
+<svg class="w-16 h-16 transform -rotate-90" viewbox="0 0 64 64">
+<circle class="text-surface-variant" cx="32" cy="32" fill="none" r="28" stroke="currentColor" stroke-width="5"></circle>
+<circle class="text-error" cx="32" cy="32" fill="none" r="28" stroke="currentColor" stroke-dasharray="176" stroke-dashoffset="23" stroke-linecap="round" stroke-width="5"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-mono-metric-lg text-mono-metric-lg text-on-surface font-bold leading-none">87</span>
+<span class="font-label-caps text-label-caps text-outline">/100</span>
+</div>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-error tracking-wider uppercase font-semibold">RISK LEVEL CRITICAL</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant max-w-[140px] leading-tight mt-0.5">High microclimate vulnerability profile</span>
+</div>
+</div>
+</div>
+<!-- Quick Context Strip -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-space-xs pt-space-md bg-surface-container-lowest/60 rounded p-space-sm mt-space-xs">
+<div class="flex flex-col px-space-sm">
+<span class="font-label-caps text-label-caps text-outline">SURVEILLANCE MODE</span>
+<span class="font-mono-metric-sm text-mono-metric-sm text-secondary">REAL-TIME RADIOMETRIC</span>
+</div>
+<div class="flex flex-col px-space-sm">
+<span class="font-label-caps text-label-caps text-outline">LAST CALIBRATED</span>
+<span class="font-mono-metric-sm text-mono-metric-sm text-on-surface">19:42 UTC (18m ago)</span>
+</div>
+<div class="flex flex-col px-space-sm">
+<span class="font-label-caps text-label-caps text-outline">SURFACE EMISSIVITY</span>
+<span class="font-mono-metric-sm text-mono-metric-sm text-primary">0.912 ε [MODIS CAL]</span>
+</div>
+<div class="flex flex-col px-space-sm">
+<span class="font-label-caps text-label-caps text-outline">CANOPY DEFICIT INDEX</span>
+<span class="font-mono-metric-sm text-mono-metric-sm text-error font-semibold">-78.2% vs baseline</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 2. Coordinate Micro-Telemetry & Temperature Statistics (4-Card Strip) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md mb-space-lg">
+<!-- Stat 1 -->
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-md flex flex-col justify-between relative overflow-hidden group hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">PEAK LAND SURF TEMP</span>
+<span class="p-1 rounded bg-error-container/40 text-error">
+<span class="material-symbols-outlined text-[18px]">thermostat</span>
+</span>
+</div>
+<div class="my-space-sm">
+<div class="flex items-baseline gap-1">
+<span class="font-mono-metric-lg text-mono-metric-lg text-error font-bold text-[28px] leading-tight">43.8</span>
+<span class="font-mono-metric-sm text-mono-metric-sm text-on-surface-variant font-medium">°C</span>
+</div>
+<span class="font-label-caps text-label-caps text-error block mt-0.5">98th Percentile Regional Delta</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-error h-full rounded-full" style="width: 98%;"></div>
+</div>
+</div>
+<!-- Stat 2 -->
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-md flex flex-col justify-between relative overflow-hidden group hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">HEAT RETENTION INDEX</span>
+<span class="p-1 rounded bg-tertiary-container/30 text-tertiary-fixed-dim">
+<span class="material-symbols-outlined text-[18px]">grid_goldenratio</span>
+</span>
+</div>
+<div class="my-space-sm">
+<div class="flex items-baseline gap-1">
+<span class="font-mono-metric-lg text-mono-metric-lg text-tertiary-fixed-dim font-bold text-[28px] leading-tight">78.4</span>
+<span class="font-mono-metric-sm text-mono-metric-sm text-on-surface-variant font-medium">%</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant block mt-0.5">Asphalt/Concrete Thermal Trap</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-tertiary-fixed-dim h-full rounded-full" style="width: 78.4%;"></div>
+</div>
+</div>
+<!-- Stat 3 -->
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-md flex flex-col justify-between relative overflow-hidden group hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">ATMOS INVERSION</span>
+<span class="p-1 rounded bg-surface-container-highest text-primary">
+<span class="material-symbols-outlined text-[18px]">air</span>
+</span>
+</div>
+<div class="my-space-sm">
+<div class="flex items-baseline gap-1">
+<span class="font-mono-metric-lg text-mono-metric-lg text-primary font-bold text-[28px] leading-tight">MOD-SEV</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant block mt-0.5">PM2.5 Trapping Correlated (74 μg/m³)</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 82%;"></div>
+</div>
+</div>
+<!-- Stat 4 -->
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-md flex flex-col justify-between relative overflow-hidden group hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">VEGETATION FRACTION</span>
+<span class="p-1 rounded bg-secondary-container/40 text-secondary">
+<span class="material-symbols-outlined text-[18px]">park</span>
+</span>
+</div>
+<div class="my-space-sm">
+<div class="flex items-baseline gap-1">
+<span class="font-mono-metric-lg text-mono-metric-lg text-on-surface font-bold text-[28px] leading-tight">0.12</span>
+<span class="font-mono-metric-sm text-mono-metric-sm text-error font-medium">NDVI</span>
+</div>
+<span class="font-label-caps text-label-caps text-error block mt-0.5">Critical Canopy Deficit (&lt;0.25 Norm)</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-error h-full rounded-full" style="width: 12%;"></div>
+</div>
+</div>
+</div>
+<!-- Primary Analytic Split Layout: 55% / 45% Bento Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg mb-space-lg">
+<!-- Left Column: Multi-Year Analysis & Baseline Deltas (7 cols ~58%) -->
+<div class="lg:col-span-7 flex flex-col gap-space-lg">
+<!-- Multi-Year Comparative Chart Card -->
+<div class="bg-surface-container-low rounded-xl p-space-lg shadow-md flex flex-col">
+<div class="flex items-center justify-between pb-space-sm mb-space-sm">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">MULTI-YEAR CLIMATE TRAJECTORY</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Seasonal Land Surface Temperature (June–September)</h2>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="flex items-center gap-1 font-mono-metric-sm text-mono-metric-sm text-outline">
+<span class="w-2.5 h-2.5 rounded-sm bg-outline"></span> 2020
+            </span>
+<span class="flex items-center gap-1 font-mono-metric-sm text-mono-metric-sm text-tertiary">
+<span class="w-2.5 h-2.5 rounded-sm bg-tertiary"></span> 2022
+            </span>
+<span class="flex items-center gap-1 font-mono-metric-sm text-mono-metric-sm text-error font-semibold">
+<span class="w-2.5 h-2.5 rounded-sm bg-error"></span> 2024 (Current)
+            </span>
+</div>
+</div>
+<!-- SVG Comparative Area & Line Chart -->
+<div class="relative w-full h-56 mt-2">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 600 220">
+<defs>
+<lineargradient id="grad2024" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#ffb4ab" stop-opacity="0.35"></stop>
+<stop offset="100%" stop-color="#ffb4ab" stop-opacity="0"></stop>
+</lineargradient>
+<lineargradient id="grad2022" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#ffb95f" stop-opacity="0.15"></stop>
+<stop offset="100%" stop-color="#ffb95f" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<!-- Grid Lines -->
+<line stroke="#303541" stroke-dasharray="4 4" stroke-width="1" x1="40" x2="590" y1="30" y2="30"></line>
+<text fill="#859398" font-family="JetBrains Mono" font-size="10" text-anchor="end" x="32" y="34">45°C</text>
+<line stroke="#303541" stroke-dasharray="4 4" stroke-width="1" x1="40" x2="590" y1="80" y2="80"></line>
+<text fill="#859398" font-family="JetBrains Mono" font-size="10" text-anchor="end" x="32" y="84">40°C</text>
+<line stroke="#303541" stroke-dasharray="4 4" stroke-width="1" x1="40" x2="590" y1="130" y2="130"></line>
+<text fill="#859398" font-family="JetBrains Mono" font-size="10" text-anchor="end" x="32" y="134">35°C</text>
+<line stroke="#303541" stroke-width="1" x1="40" x2="590" y1="180" y2="180"></line>
+<text fill="#859398" font-family="JetBrains Mono" font-size="10" text-anchor="end" x="32" y="184">30°C</text>
+<!-- 2020 Area (Grey baseline) -->
+<path d="M 50 160 Q 150 145, 230 115 T 410 95 T 580 140 L 580 180 L 50 180 Z" fill="#303541" fill-opacity="0.2"></path>
+<path d="M 50 160 Q 150 145, 230 115 T 410 95 T 580 140" fill="none" stroke="#859398" stroke-dasharray="2 2" stroke-width="1.5"></path>
+<!-- 2022 Curve (Amber) -->
+<path d="M 50 145 Q 140 120, 240 85 T 400 65 T 580 115 L 580 180 L 50 180 Z" fill="url(#grad2022)"></path>
+<path d="M 50 145 Q 140 120, 240 85 T 400 65 T 580 115" fill="none" stroke="#ffb95f" stroke-width="2"></path>
+<!-- 2024 Current Severe Curve (Red/Coral) -->
+<path d="M 50 135 Q 130 90, 250 50 T 390 35 T 580 80 L 580 180 L 50 180 Z" fill="url(#grad2024)"></path>
+<path d="M 50 135 Q 130 90, 250 50 T 390 35 T 580 80" fill="none" stroke="#ffb4ab" stroke-width="2.5"></path>
+<!-- Peak Callout Point -->
+<circle class="animate-ping" cx="390" cy="35" fill="#ffb4ab" opacity="0.75" r="4"></circle>
+<circle cx="390" cy="35" fill="#ffb4ab" r="4"></circle>
+<rect fill="#93000a" height="18" rx="2" width="62" x="360" y="8"></rect>
+<text fill="#dee2f2" font-family="JetBrains Mono" font-size="10" font-weight="bold" text-anchor="middle" x="391" y="21">43.8°C PEAK</text>
+<!-- X Axis Month Ticks -->
+<text fill="#859398" font-family="JetBrains Mono" font-size="10" x="60" y="200">JUN 01</text>
+<text fill="#859398" font-family="JetBrains Mono" font-size="10" x="210" y="200">JUL 01</text>
+<text fill="#859398" font-family="JetBrains Mono" font-size="10" x="370" y="200">AUG 01</text>
+<text fill="#859398" font-family="JetBrains Mono" font-size="10" x="530" y="200">SEP 15</text>
+</svg>
+</div>
+<div class="flex items-center justify-between text-outline font-mono-metric-sm text-mono-metric-sm pt-space-xs">
+<span>Source: NASA ECOSTRESS L3 Product + Sentinel-2 Thermal Band 10 Inversion</span>
+<span class="text-error font-medium">Trend: +2.4°C accelerated climb vs 2022</span>
+</div>
+</div>
+<!-- Historical Baselines & Diurnal Cooling Analysis Dual Card -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Extreme Heat Days Counter -->
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-md flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-caps text-label-caps text-outline uppercase">EXTREME HEAT EXPOSURE</span>
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-[16px]">warning</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Days Above 40°C (104°F)</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Cumulative thresholds breached for calendar 2024</p>
+</div>
+<div class="my-space-md flex items-end justify-between bg-surface-container-lowest p-space-md rounded-lg">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-error font-semibold">2024 YTD RECORD</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="font-mono-metric-lg text-mono-metric-lg text-error font-bold text-[32px] leading-none">42</span>
+<span class="font-mono-metric-sm text-mono-metric-sm text-on-surface-variant">days</span>
+</div>
+</div>
+<div class="flex flex-col text-right">
+<span class="font-label-caps text-label-caps text-outline">10-YR HISTORICAL MEAN</span>
+<div class="flex items-baseline justify-end gap-1 mt-0.5">
+<span class="font-mono-metric-lg text-mono-metric-lg text-on-surface font-semibold leading-none">28</span>
+<span class="font-mono-metric-sm text-mono-metric-sm text-on-surface-variant">days</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-error-container/40 text-error font-mono-metric-sm text-mono-metric-sm font-semibold">+50% OVER HISTORICAL</span>
+<span class="text-body-sm font-body-sm text-outline">Exceeds 95th percentile risk ceiling</span>
+</div>
+</div>
+<!-- Diurnal Cooling Delta Analysis -->
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-md flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-caps text-label-caps text-outline uppercase">NOCTURNAL DISSIPATION</span>
+<span class="material-symbols-outlined text-primary text-[16px]">bedtime</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Diurnal Cooling Failure</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Surface nocturnal radiation loss coefficient</p>
+</div>
+<div class="my-space-md bg-surface-container-lowest p-space-md rounded-lg flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-mono-metric-sm text-mono-metric-sm text-on-surface-variant">Cooling Rate Deficit:</span>
+<span class="font-mono-metric-sm text-mono-metric-sm text-error font-bold">-3.2°C / hr</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-mono-metric-sm text-mono-metric-sm text-on-surface-variant">Midnight Heat Retention:</span>
+<span class="font-mono-metric-sm text-mono-metric-sm text-tertiary-fixed-dim">31.4°C @ 02:00 UTC</span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden mt-1">
+<div class="bg-error h-full rounded-full" style="width: 86%;"></div>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Pavement thermal inertia prevents nighttime human biological recovery cycle across residential perimeter.
+          </p>
+</div>
+</div>
+<!-- High-Resolution Thermal Anomaly Ortho Photo Placeholder -->
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-md flex flex-col">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">radiology</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Radiometric Orthomosaic Inspection</span>
+</div>
+<span class="font-label-caps text-label-caps text-secondary bg-surface-container px-2 py-0.5 rounded">2.5m GSD ENHANCED</span>
+</div>
+<div class="relative w-full h-44 rounded-lg overflow-hidden bg-surface-container-lowest flex items-center justify-center">
+<img class="w-full h-full object-cover opacity-80" data-alt="Overhead satellite thermal radiometric imagery of an industrial warehouse complex in Bakersfield California showing intense crimson and infrared thermal signatures radiating from sprawling flat commercial rooftops and dark asphalt logistics parking lots, contrasted against pale cooler desert soils, high-tech tactical telemetry user interface overlay" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVwX0eRM0nb0p8UNT-AdaxkG4zTDk-oM2ObvtHfyn5wcJmGV5GlE8tsJrd61mIjYpLC0Jq6Jo2bILcyTR280e5JS5Zd_DDMUuQfv-2VhT3eqLC_r3m0yohTRSb0_hEUeaj1jinnIUG9sc9qyUv3wJrl43j4Wud99ZU7JpUu-uZ6fa_FHx3TgOniAL7DrVYBt6fd2zJKEAr82HRcvq3Z96ndziS6Qx5Clkil19EAqsz"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent"></div>
+<div class="absolute top-2 left-2 px-2 py-1 rounded bg-surface-container-lowest/80 backdrop-blur-md font-mono-metric-sm text-mono-metric-sm text-primary flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+            CENTRAL PLUME HOTSPOT [ID: TR-891]
+          </div>
+<div class="absolute bottom-2 right-2 px-2 py-1 rounded bg-surface-container-lowest/80 backdrop-blur-md font-mono-metric-sm text-mono-metric-sm text-on-surface">
+            FOI: 2.4 km² | RAD BAND: 10.8 μm
+          </div>
+</div>
+</div>
+</div>
+<!-- Right Column: Nearby Geographical Features & Vulnerability Proximity (5 cols ~42%) -->
+<div class="lg:col-span-5 flex flex-col gap-space-lg">
+<!-- Proximity Radar & Distance Table -->
+<div class="bg-surface-container-low rounded-xl p-space-lg shadow-md flex flex-col">
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">SPATIAL VULNERABILITY RADAR</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Proximity Breakdown</h2>
+</div>
+<span class="material-symbols-outlined text-primary text-[20px]">radar</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
+          Critical infrastructure and socio-ecological boundaries within 3,000m perimeter.
+        </p>
+<!-- Distance Breakdown Rows -->
+<div class="flex flex-col gap-space-xs">
+<!-- Item 1 -->
+<div class="p-space-sm rounded-lg bg-surface-container flex items-center justify-between hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded bg-error-container/30 text-error flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">family_restroom</span>
+</div>
+<div class="flex flex-col truncate">
+<span class="font-body-sm text-body-sm text-on-surface font-semibold truncate">High-Density Residential Zone</span>
+<span class="font-label-caps text-label-caps text-error">EXPOSURE: HIGH (8,400 RESIDENTS)</span>
+</div>
+</div>
+<div class="text-right shrink-0 ml-2">
+<span class="font-mono-metric-md text-mono-metric-md text-error font-bold">420m</span>
+<span class="block font-label-caps text-label-caps text-outline">SE Sector</span>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="p-space-sm rounded-lg bg-surface-container flex items-center justify-between hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded bg-tertiary-container/30 text-tertiary-fixed-dim flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">local_shipping</span>
+</div>
+<div class="flex flex-col truncate">
+<span class="font-body-sm text-body-sm text-on-surface font-semibold truncate">Municipal Logistics Hub</span>
+<span class="font-label-caps text-label-caps text-tertiary-fixed-dim">MAJOR EMISSIVITY SOURCE</span>
+</div>
+</div>
+<div class="text-right shrink-0 ml-2">
+<span class="font-mono-metric-md text-mono-metric-md text-on-surface font-bold">150m</span>
+<span class="block font-label-caps text-label-caps text-outline">NW Sector</span>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="p-space-sm rounded-lg bg-surface-container flex items-center justify-between hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded bg-surface-container-highest text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">water</span>
+</div>
+<div class="flex flex-col truncate">
+<span class="font-body-sm text-body-sm text-on-surface font-semibold truncate">Canal / Riparian Corridor</span>
+<span class="font-label-caps text-label-caps text-outline">INSUFFICIENT BUFFER COUPLING</span>
+</div>
+</div>
+<div class="text-right shrink-0 ml-2">
+<span class="font-mono-metric-md text-mono-metric-md text-on-surface-variant font-bold">2.8 km</span>
+<span class="block font-label-caps text-label-caps text-outline">E Sector</span>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="p-space-sm rounded-lg bg-surface-container flex items-center justify-between hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded bg-surface-container-highest text-tertiary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+</div>
+<div class="flex flex-col truncate">
+<span class="font-body-sm text-body-sm text-on-surface font-semibold truncate">Industrial Substation</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">ANTHROPOGENIC HEAT GENERATOR</span>
+</div>
+</div>
+<div class="text-right shrink-0 ml-2">
+<span class="font-mono-metric-md text-mono-metric-md text-on-surface font-bold">800m</span>
+<span class="block font-label-caps text-label-caps text-outline">S Sector</span>
+</div>
+</div>
+</div>
+<!-- Integrated Geo Location Map Canvas Snippet -->
+<div class="mt-space-md">
+<div class="flex items-center justify-between pb-1">
+<span class="font-label-caps text-label-caps text-outline">SPATIAL CONTEXT MAP</span>
+<span class="font-mono-metric-sm text-mono-metric-sm text-primary">35.3733, -119.0187</span>
+</div>
+<div class="w-full h-36 bg-cover bg-center rounded-lg shadow-inner relative overflow-hidden" data-location="Bakersfield, California" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBEvFHjaz83vub-cuYl-MEdcNP9fvbcjUekR_txWY3G--5Ymt21rZq_VpIiwIdRQAIDfglk_AQ1RT4VV-AD7gLpqu-twTMF18n4Xu9rZYOyNTM-1MAU3h17_akxavmRqnEg1G3qP_vXpakDnEDA-ulZcsZBng_zs2viZPcsnzVpgV-Bsi2Wlqpe37L4_7dsatNtqMh4q8xAGMPysiij9y1lYo-a2JZClbOm5hX8_UuT')">
+<div class="absolute inset-0 bg-surface-container-lowest/30 backdrop-blur-[1px]"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="relative flex items-center justify-center">
+<div class="w-12 h-12 rounded-full bg-error/20 animate-ping absolute"></div>
+<div class="w-6 h-6 rounded-full bg-error/40 flex items-center justify-center">
+<div class="w-2.5 h-2.5 rounded-full bg-error"></div>
+</div>
+</div>
+</div>
+<div class="absolute bottom-2 left-2 bg-surface-container-lowest/90 px-2 py-0.5 rounded font-mono-metric-sm text-mono-metric-sm text-on-surface">
+              BUFF: 3000m AOI
+            </div>
+</div>
+</div>
+</div>
+<!-- Sensor Observations Log & Radiometric Calibration Comparison -->
+<div class="bg-surface-container-low rounded-xl p-space-lg shadow-md flex flex-col flex-1">
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">SENSOR COMPARATIVE TELEMETRY</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">In-Situ vs Radiometric Cross-Check</h2>
+</div>
+<span class="material-symbols-outlined text-secondary text-[20px]">sync_alt</span>
+</div>
+<div class="flex flex-col gap-space-xs mt-space-xs">
+<!-- Station Row 1 -->
+<div class="p-space-sm rounded bg-surface-container-lowest flex items-center justify-between">
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-mono-metric-sm text-mono-metric-sm text-on-surface font-semibold">NOAA Stn #040442 (Airport)</span>
+</div>
+<span class="font-label-caps text-label-caps text-outline">AIR TEMP 2m AGL</span>
+</div>
+<div class="text-right">
+<span class="font-mono-metric-md text-mono-metric-md text-on-surface">41.1°C</span>
+<span class="block font-label-caps text-label-caps text-secondary font-medium">Δ -2.7°C (Air Lag)</span>
+</div>
+</div>
+<!-- Station Row 2 -->
+<div class="p-space-sm rounded bg-surface-container-lowest flex items-center justify-between">
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span class="font-mono-metric-sm text-mono-metric-sm text-on-surface font-semibold">ECOSTRESS Radiometer</span>
+</div>
+<span class="font-label-caps text-label-caps text-outline">SURFACE SKIN TEMP</span>
+</div>
+<div class="text-right">
+<span class="font-mono-metric-md text-mono-metric-md text-error font-semibold">43.8°C</span>
+<span class="block font-label-caps text-label-caps text-primary font-medium">PRIMARY TRUTH</span>
+</div>
+</div>
+<!-- Station Row 3 -->
+<div class="p-space-sm rounded bg-surface-container-lowest flex items-center justify-between">
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim"></span>
+<span class="font-mono-metric-sm text-mono-metric-sm text-on-surface font-semibold">EPA AirNow Kern District</span>
+</div>
+<span class="font-label-caps text-label-caps text-outline">INVERSION CORRELATION</span>
+</div>
+<div class="text-right">
+<span class="font-mono-metric-md text-mono-metric-md text-tertiary-fixed-dim font-semibold">AQI 162</span>
+<span class="block font-label-caps text-label-caps text-error font-medium">UNHEALTHY</span>
+</div>
+</div>
+</div>
+<div class="mt-space-md p-space-sm rounded bg-surface-container flex items-center justify-between">
+<span class="font-mono-metric-sm text-mono-metric-sm text-outline">Calibration Residual RMSE:</span>
+<span class="font-mono-metric-sm text-mono-metric-sm text-secondary font-bold">0.42 K (NOMINAL)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 5. Action Bar & Triage Notes Section -->
+<div class="bg-surface-container-low rounded-xl p-space-lg shadow-xl flex flex-col gap-space-md">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<!-- Analyst Notes Ledger -->
+<div class="flex items-start gap-space-md flex-1">
+<div class="w-9 h-9 rounded bg-surface-container-high flex items-center justify-center shrink-0 text-primary mt-0.5">
+<span class="material-symbols-outlined text-[20px]">edit_note</span>
+</div>
+<div class="flex flex-col flex-1">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Forensic Triage &amp; Audit Trail</span>
+<span class="font-mono-metric-sm text-mono-metric-sm text-outline">[ANALYST ID: VANCE-94]</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 leading-relaxed">
+            Severe thermal amplification verified due to high-albedo commercial roof deficit and expansive unshaded freight pavement. Proximity of vulnerable residential tract within 420m necessitates dispatch of urban heat warning bulletin to Kern County Emergency Operations.
+          </p>
+<div class="flex items-center gap-space-md mt-2 flex-wrap">
+<span class="font-label-caps text-label-caps text-outline">AUDIT HASH: e4f9810a9c7</span>
+<span class="text-outline">/</span>
+<span class="font-label-caps text-label-caps text-secondary">STATUS: ESCALATED TO TIER-2 MITIGATION</span>
+<span class="text-outline">/</span>
+<span class="font-label-caps text-label-caps text-outline">UPDATED 19:42:01 UTC</span>
+</div>
+</div>
+</div>
+<!-- Action Buttons Cluster -->
+<div class="flex items-center gap-space-sm shrink-0 flex-wrap">
+<button class="px-space-md py-2 rounded bg-surface-container hover:bg-surface-container-high text-primary font-mono-metric-sm text-mono-metric-sm flex items-center gap-1.5 transition-colors shadow-sm" id="btn-export-geojson" type="button">
+<span class="material-symbols-outlined text-[16px]">data_object</span>
+<span>Export GeoJSON</span>
+</button>
+<button class="px-space-md py-2 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-mono-metric-sm text-mono-metric-sm flex items-center gap-1.5 transition-colors shadow-sm" id="btn-export-stac" type="button">
+<span class="material-symbols-outlined text-[16px]">deployed_code</span>
+<span>STAC Item</span>
+</button>
+<button class="px-space-md py-2 rounded bg-primary-container text-on-primary-container font-mono-metric-sm text-mono-metric-sm font-semibold flex items-center gap-1.5 hover:opacity-90 transition-opacity shadow-sm" id="btn-export-dossier" type="button">
+<span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+<span>Download PDF Dossier</span>
+</button>
+</div>
+</div>
+<!-- Collapsible Quick Inspector Log -->
+<div class="bg-surface-container-lowest/80 p-space-sm rounded font-mono-metric-sm text-mono-metric-sm text-on-surface-variant flex items-center justify-between">
+<div class="flex items-center gap-space-sm truncate">
+<span class="text-secondary font-bold">&gt; GEO_SENTINEL_DISPATCH:</span>
+<span class="truncate">Alert payload dispatched to webhook endpoint: kern-emergency-dispatch.svc.cluster.local</span>
+</div>
+<span class="text-outline shrink-0 ml-2">HTTP 202 ACCEPTED</span>
+</div>
+</div>
+</div>
+<script>
+  // Simple micro-interactions for button telemetry feedback
+  document.getElementById('btn-export-geojson')?.addEventListener('click', function() {
+    const btn = this;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<span class="material-symbols-outlined text-[16px] text-secondary">check</span> <span>Generated .json</span>';
+    setTimeout(() => { btn.innerHTML = originalText; }, 2000);
+  });
+
+  document.getElementById('btn-export-stac')?.addEventListener('click', function() {
+    const btn = this;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<span class="material-symbols-outlined text-[16px] text-secondary">check</span> <span>STAC v1.0.0 Ready</span>';
+    setTimeout(() => { btn.innerHTML = originalText; }, 2000);
+  });
+
+  document.getElementById('btn-export-dossier')?.addEventListener('click', function() {
+    const btn = this;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<span class="material-symbols-outlined text-[16px]">downloading</span> <span>Compiling...</span>';
+    setTimeout(() => { 
+      btn.innerHTML = '<span class="material-symbols-outlined text-[16px]">check_circle</span> <span>Dossier Exported</span>';
+      setTimeout(() => { btn.innerHTML = originalText; }, 2000);
+    }, 1200);
+  });
+</script></main></div></body></html>

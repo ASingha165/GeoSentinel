@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "primary-container": "#00d9ff", "on-error": "#690005", "outline-variant": "#3c494d", "surface-container-lowest": "#090e19", "on-tertiary-fixed": "#2a1700", "background": "#0e131e", "secondary-fixed-dim": "#4edea3", "primary-fixed-dim": "#00d9ff", "on-tertiary-fixed-variant": "#653e00", "surface-container": "#1b1f2b", "surface-tint": "#00d9ff", "tertiary-fixed-dim": "#ffb95f", "on-secondary-fixed": "#002113", "on-error-container": "#ffdad6", "on-primary": "#003641", "secondary-fixed": "#6ffbbe", "on-surface": "#dee2f2", "surface-dim": "#0e131e", "tertiary": "#ffddb8", "on-tertiary-container": "#754900", "inverse-surface": "#dee2f2", "on-secondary-container": "#00311f", "secondary": "#4edea3", "on-primary-container": "#005b6c", "error": "#ffb4ab", "tertiary-container": "#ffb95f", "outline": "#859398", "surface-variant": "#303541", "surface": "#0e131e", "secondary-container": "#00a572", "on-secondary-fixed-variant": "#005236", "surface-container-highest": "#303541", "on-background": "#dee2f2", "error-container": "#93000a", "tertiary-fixed": "#ffddb8", "inverse-primary": "#00687b", "on-surface-variant": "#bbc9ce", "surface-container-high": "#252a36", "surface-container-low": "#161b27", "on-tertiary": "#472a00", "primary": "#afecff", "inverse-on-surface": "#2b303d", "surface-bright": "#343946", "on-secondary": "#003824", "on-primary-fixed-variant": "#004e5d", "on-primary-fixed": "#001f26", "primary-fixed": "#aeecff" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "gutter": "0.75rem", "space-md": "0.75rem", "space-lg": "1rem", "space-xl": "1.5rem", "margin": "1rem", "space-sm": "0.5rem", "space-xs": "0.25rem" }, "fontFamily": { "mono-metric-lg": [ "JetBrains Mono" ], "body-lg": [ "Inter" ], "mono-metric-md": [ "JetBrains Mono" ], "mono-metric-sm": [ "JetBrains Mono" ], "headline-xl": [ "Inter" ], "body-md": [ "Inter" ], "label-caps": [ "JetBrains Mono" ], "headline-lg": [ "Inter" ], "body-sm": [ "Inter" ], "headline-md": [ "Inter" ], "headline-sm": [ "Inter" ] }, "fontSize": { "mono-metric-lg": [ "22px", { "lineHeight": "28px", "letterSpacing": "-0.02em", "fontWeight": "500" } ], "body-lg": [ "15px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" } ], "mono-metric-md": [ "14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "500" } ], "mono-metric-sm": [ "11px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" } ], "headline-xl": [ "32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" } ], "body-md": [ "13px", { "lineHeight": "18px", "letterSpacing": "0.005em", "fontWeight": "400" } ], "label-caps": [ "10px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "600" } ], "headline-lg": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "body-sm": [ "12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400" } ], "headline-md": [ "20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "headline-sm": [ "16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600" } ] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-low/95 backdrop-blur-xl z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.3)]"><div class="flex flex-col"><div class="h-16 px-space-lg flex items-center justify-between bg-surface-container-lowest/40"><div class="flex items-center gap-space-sm"><img alt="GeoSentinel Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XjECwVoIEnxw1mPMHPgnvRTTUg8UzdJp3F4niwkaiunSMGcqA0mA5c7W9s4MkR_WEZwDnaZRyEYl_nxwonTVZgUoYX9Sjs2fvzj50aT6JtoBJsRnGv8_5OZbb-cMV5mEhx-OAcg3CLKlyCntM4qLApBoe5fLYkLG5Elz9oO2qzYza3Ea23vDJIJR1EH73Tlvr9A5T7ZCnTFgfk8g-Fe9zp7BpYQ6jp_LJoxC1d9S9n-g"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary tracking-tight leading-none">GEOSENTINEL</span><span class="font-label-caps text-label-caps text-outline leading-tight mt-0.5">PLANETARY INTELLIGENCE</span></div></div><div class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container-high"><span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span><span class="font-label-caps text-label-caps text-secondary font-medium">US-EAST-1</span></div></div><nav class="flex flex-col gap-1 p-space-md" data-active-classes="bg-primary-container text-on-primary-container font-semibold"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="command-center" href="#"><span class="material-symbols-outlined text-[18px]">terminal</span><span class="font-body-md text-body-md">Command Center</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="geospatial-explorer" href="#"><span class="material-symbols-outlined text-[18px]">public</span><span class="font-body-md text-body-md">Geospatial Explorer</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="location-intelligence" href="#"><span class="material-symbols-outlined text-[18px]">share_location</span><span class="font-body-md text-body-md">Location Intelligence</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="environmental-analytics" href="#"><span class="material-symbols-outlined text-[18px]">nest_eco_leaf</span><span class="font-body-md text-body-md">Environmental Analytics</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm rounded transition-all bg-primary-container text-on-primary-container font-semibold" data-path="data-sources" href="#"><span class="material-symbols-outlined text-[18px]">dataset</span><span class="font-body-md text-body-md">Data Sources</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="settings" href="#"><span class="material-symbols-outlined text-[18px]">tune</span><span class="font-body-md text-body-md">Settings</span></a></nav></div><div class="p-space-md m-space-md rounded bg-surface-container-lowest/80 flex flex-col gap-space-xs"><div class="flex items-center justify-between"><span class="font-label-caps text-label-caps text-outline">TELEMETRY HUD</span><span class="font-mono-metric-sm text-mono-metric-sm text-secondary">MAPLIBRE GL</span></div><div class="grid grid-cols-2 gap-space-xs pt-1"><div class="flex flex-col"><span class="font-label-caps text-label-caps text-outline">ENGINE</span><span class="font-mono-metric-sm text-mono-metric-sm text-on-surface truncate">AMZN LOC</span></div><div class="flex flex-col"><span class="font-label-caps text-label-caps text-outline">LATENCY</span><span class="font-mono-metric-sm text-mono-metric-sm text-secondary">24ms</span></div><div class="flex flex-col"><span class="font-label-caps text-label-caps text-outline">HEAP</span><span class="font-mono-metric-sm text-mono-metric-sm text-on-surface">142 MB</span></div><div class="flex flex-col"><span class="font-label-caps text-label-caps text-outline">RASTER STACK</span><span class="font-mono-metric-sm text-mono-metric-sm text-primary">16 TILES</span></div></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface/85 backdrop-blur-xl z-40 flex items-center justify-between px-space-lg shadow-[0_1px_8px_rgba(0,0,0,0.25)]"><div class="flex items-center gap-space-lg flex-1 max-w-2xl"><div class="relative flex-1"><span class="material-symbols-outlined absolute left-space-md top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span><input class="w-full bg-surface-container-lowest text-on-surface placeholder:text-outline text-body-sm font-mono-metric-sm pl-10 pr-space-md py-1.5 rounded focus:outline-none focus:bg-surface-container-high transition-colors" placeholder="Search Lat/Long, City, or Tile ID... [Cmd+K]" type="text"/></div><div class="relative min-w-[220px]"><select class="w-full bg-surface-container-high text-on-surface text-body-sm font-body-sm px-space-md py-1.5 rounded appearance-none cursor-pointer focus:outline-none pr-8"><option>MODIS Land Surface Temp v6.1</option><option>Sentinel-2 Multispectral</option><option>ERA5 Atmospheric Reanalysis</option><option>NOAA Urban Heat Island 2024</option></select><span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-[16px]">expand_more</span></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container"><span class="w-2 h-2 rounded-full bg-secondary animate-ping"></span><span class="font-mono-metric-sm text-mono-metric-sm text-secondary">Live (T-14s)</span></div><div class="flex items-center gap-1"><button class="p-1.5 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" title="Layer Presets" type="button"><span class="material-symbols-outlined text-[20px]">layers</span></button><button class="p-1.5 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" title="Export GeoJSON" type="button"><span class="material-symbols-outlined text-[20px]">file_download</span></button><button class="relative p-1.5 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" title="Alert Center" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-4 h-4 rounded-full bg-error text-on-error font-mono-metric-sm text-[10px] leading-none flex items-center justify-center font-bold">3</span></button></div><div class="flex items-center gap-space-sm pl-space-sm bg-surface-container-low px-space-sm py-1 rounded"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnNTq7ILB6lJQVM_9KyLeEwRRFLrTLjH0KhrRDHiNDeAXIcoY3yPz7d1TMLTK0fx6-9wHRl4yj_kvlTljAMjEW2JvmJ0zNAxZ-ya98a3imFEONoFaiBIKhrnq3f7eWR1CdyqpsD797K99LLQUb_wQcHo5pL6C5P-d02jhye-de85YTpVDKP8F14wb7omVoUzbTUVH_Nfm9JQV85kZONlHB1vXpBe1z3UD-3zDtiqGc"/><div class="flex flex-col text-left"><div class="flex items-center gap-1"><span class="font-body-sm text-body-sm font-semibold text-on-surface leading-none">Dr. Elena Vance</span><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span></div><span class="font-label-caps text-label-caps text-primary leading-tight mt-0.5">TS/SCI GEOINT</span></div></div></div></header><main class="relative pt-16 bg-surface min-h-screen w-full px-space-lg"><div class="flex flex-col w-full">
+<div class="relative w-full overflow-hidden rounded-xl bg-surface-container-low mb-space-xl p-space-lg shadow-xl">
+<div class="absolute -right-24 -top-24 w-96 h-96 rounded-full bg-primary-container/5 blur-3xl pointer-events-none"></div>
+<div class="absolute -left-20 -bottom-20 w-80 h-80 rounded-full bg-secondary/5 blur-3xl pointer-events-none"></div>
+<div class="relative flex flex-col lg:flex-row lg:items-center justify-between gap-space-md mb-space-lg">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-widest">INFRASTRUCTURE PIPELINE &amp; PROVENANCE</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-0.5">AWS Mission Telemetry &amp; Data Provenance</h2>
+<p class="font-body-sm text-body-sm text-outline max-w-2xl mt-1">Real-time planetary data lake ingestion topology, serverless transform meshes, and strict OGC STAC provenance verifications.</p>
+</div>
+<div class="flex items-center flex-wrap gap-space-sm">
+<div class="flex items-center gap-space-xs px-space-md py-1.5 rounded-lg bg-surface-container-high/70 shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-primary">data_saver_on</span>
+<span class="font-label-caps text-label-caps text-outline">INGEST RUNTIME:</span>
+<span class="font-mono-metric-sm text-mono-metric-sm text-primary font-semibold">1.84 TB / 24H</span>
+</div>
+<div class="flex items-center gap-space-xs px-space-md py-1.5 rounded-lg bg-surface-container-high/70 shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">verified_user</span>
+<span class="font-label-caps text-label-caps text-outline">SYSTEM HEALTH:</span>
+<span class="font-mono-metric-sm text-mono-metric-sm text-secondary font-semibold">99.98% SLA</span>
+</div>
+<button class="flex items-center gap-1.5 px-space-md py-1.5 rounded-lg bg-surface-variant hover:bg-surface-bright text-on-surface transition-colors cursor-pointer text-body-sm font-body-sm" id="refreshTopologyBtn">
+<span class="material-symbols-outlined text-[16px] text-primary" id="refreshIcon">sync</span>
+<span>Sync Fabric</span>
+</button>
+</div>
+</div>
+<!-- AWS Architecture Pipeline Interactive Flow -->
+<div class="relative w-full rounded-xl bg-surface-container-lowest p-space-lg shadow-inner overflow-x-auto">
+<div class="flex items-center justify-between min-w-[1100px] mb-space-md">
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps text-primary">GEOINT DATA HIGHWAY</span>
+<span class="text-outline text-label-caps font-label-caps">// CLOUD-NATIVE COG PIPELINE</span>
+</div>
+<div class="flex items-center gap-4 text-outline font-label-caps text-label-caps">
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded bg-secondary"></span> OPERATIONAL</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded bg-primary"></span> PIPELINE STREAM</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded bg-tertiary-container"></span> SECURED IAM</span>
+</div>
+</div>
+<div class="grid grid-cols-6 gap-3 min-w-[1100px] relative items-stretch">
+<!-- Node 1: Satellite & In-Situ Providers -->
+<div class="group relative flex flex-col justify-between p-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer shadow-md">
+<div class="flex items-start justify-between">
+<span class="p-1.5 rounded bg-surface-container-high text-primary">
+<span class="material-symbols-outlined text-[20px]">satellite_alt</span>
+</span>
+<span class="px-1.5 py-0.5 rounded font-mono-metric-sm text-[10px] bg-secondary/10 text-secondary">LIVE</span>
+</div>
+<div class="my-3">
+<span class="font-label-caps text-[9px] text-outline block">NODE 01 // INGESTION</span>
+<h4 class="font-headline-sm text-body-md text-on-surface font-semibold truncate">Data Providers</h4>
+<p class="font-mono-metric-sm text-[11px] text-on-surface-variant mt-1">MODIS, Sentinel, NOAA, ECMWF</p>
+</div>
+<div class="pt-2 bg-surface-container-lowest/50 rounded p-2 flex flex-col gap-1">
+<div class="flex justify-between text-[10px] font-mono-metric-sm">
+<span class="text-outline">FEED</span>
+<span class="text-on-surface">5 In-Situ Feeds</span>
+</div>
+<div class="flex justify-between text-[10px] font-mono-metric-sm">
+<span class="text-outline">POLL INTERVAL</span>
+<span class="text-secondary">15s - 1hr</span>
+</div>
+</div>
+<div class="absolute -right-3 top-1/2 -translate-y-1/2 z-10 hidden xl:flex text-primary">
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</div>
+</div>
+<!-- Node 2: AWS S3 Geospatial Data Lake -->
+<div class="group relative flex flex-col justify-between p-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer shadow-md">
+<div class="flex items-start justify-between">
+<span class="p-1.5 rounded bg-surface-container-high text-primary-container">
+<span class="material-symbols-outlined text-[20px]">cloud_circle</span>
+</span>
+<span class="px-1.5 py-0.5 rounded font-mono-metric-sm text-[10px] bg-secondary/10 text-secondary">256-BIT KMS</span>
+</div>
+<div class="my-3">
+<span class="font-label-caps text-[9px] text-outline block">NODE 02 // S3 LAKE</span>
+<h4 class="font-headline-sm text-body-md text-on-surface font-semibold truncate">Raster Data Lake</h4>
+<p class="font-mono-metric-sm text-[11px] text-primary truncate">geosentinel-raster-lake</p>
+</div>
+<div class="pt-2 bg-surface-container-lowest/50 rounded p-2 flex flex-col gap-1">
+<div class="flex justify-between text-[10px] font-mono-metric-sm">
+<span class="text-outline">FORMAT</span>
+<span class="text-on-surface">STAC 1.0 &amp; COGs</span>
+</div>
+<div class="flex justify-between text-[10px] font-mono-metric-sm">
+<span class="text-outline">CAPACITY</span>
+<span class="text-primary">148.6 TB Total</span>
+</div>
+</div>
+<div class="absolute -right-3 top-1/2 -translate-y-1/2 z-10 hidden xl:flex text-primary">
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</div>
+</div>
+<!-- Node 3: AWS Lambda & EventBridge -->
+<div class="group relative flex flex-col justify-between p-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer shadow-md">
+<div class="flex items-start justify-between">
+<span class="p-1.5 rounded bg-surface-container-high text-tertiary-container">
+<span class="material-symbols-outlined text-[20px]">bolt</span>
+</span>
+<span class="px-1.5 py-0.5 rounded font-mono-metric-sm text-[10px] bg-secondary/10 text-secondary">CONCURRENCY 2.4k</span>
+</div>
+<div class="my-3">
+<span class="font-label-caps text-[9px] text-outline block">NODE 03 // SERVERLESS</span>
+<h4 class="font-headline-sm text-body-md text-on-surface font-semibold truncate">Lambda &amp; EventBridge</h4>
+<p class="font-mono-metric-sm text-[11px] text-on-surface-variant truncate">GeoTIFF Dynamic Tiling</p>
+</div>
+<div class="pt-2 bg-surface-container-lowest/50 rounded p-2 flex flex-col gap-1">
+<div class="flex justify-between text-[10px] font-mono-metric-sm">
+<span class="text-outline">INVOCATIONS</span>
+<span class="text-on-surface">14.2M / mo</span>
+</div>
+<div class="flex justify-between text-[10px] font-mono-metric-sm">
+<span class="text-outline">AVG EXECUTION</span>
+<span class="text-secondary">42ms</span>
+</div>
+</div>
+<div class="absolute -right-3 top-1/2 -translate-y-1/2 z-10 hidden xl:flex text-primary">
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</div>
+</div>
+<!-- Node 4: Amazon Location Service -->
+<div class="group relative flex flex-col justify-between p-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer shadow-md">
+<div class="flex items-start justify-between">
+<span class="p-1.5 rounded bg-surface-container-high text-primary">
+<span class="material-symbols-outlined text-[20px]">map</span>
+</span>
+<span class="px-1.5 py-0.5 rounded font-mono-metric-sm text-[10px] bg-secondary/10 text-secondary">INDEX SYNC</span>
+</div>
+<div class="my-3">
+<span class="font-label-caps text-[9px] text-outline block">NODE 04 // SPATIAL INDEX</span>
+<h4 class="font-headline-sm text-body-md text-on-surface font-semibold truncate">Amazon Location</h4>
+<p class="font-mono-metric-sm text-[11px] text-on-surface-variant truncate">Vector Basemaps &amp; Place</p>
+</div>
+<div class="pt-2 bg-surface-container-lowest/50 rounded p-2 flex flex-col gap-1">
+<div class="flex justify-between text-[10px] font-mono-metric-sm">
+<span class="text-outline">TILES CACHED</span>
+<span class="text-on-surface">1.2M MVT</span>
+</div>
+<div class="flex justify-between text-[10px] font-mono-metric-sm">
+<span class="text-outline">INDEX LATENCY</span>
+<span class="text-secondary">18ms</span>
+</div>
+</div>
+<div class="absolute -right-3 top-1/2 -translate-y-1/2 z-10 hidden xl:flex text-primary">
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</div>
+</div>
+<!-- Node 5: FastAPI Backend Engine -->
+<div class="group relative flex flex-col justify-between p-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer shadow-md">
+<div class="flex items-start justify-between">
+<span class="p-1.5 rounded bg-surface-container-high text-secondary">
+<span class="material-symbols-outlined text-[20px]">code_blocks</span>
+</span>
+<span class="px-1.5 py-0.5 rounded font-mono-metric-sm text-[10px] bg-secondary/10 text-secondary">UVICORN 0.28</span>
+</div>
+<div class="my-3">
+<span class="font-label-caps text-[9px] text-outline block">NODE 05 // CORE API</span>
+<h4 class="font-headline-sm text-body-md text-on-surface font-semibold truncate">FastAPI Engine</h4>
+<p class="font-mono-metric-sm text-[11px] text-on-surface-variant truncate">Python Async Raster Core</p>
+</div>
+<div class="pt-2 bg-surface-container-lowest/50 rounded p-2 flex flex-col gap-1">
+<div class="flex justify-between text-[10px] font-mono-metric-sm">
+<span class="text-outline">RPS</span>
+<span class="text-on-surface">4,810 req/s</span>
+</div>
+<div class="flex justify-between text-[10px] font-mono-metric-sm">
+<span class="text-outline">P99 RES</span>
+<span class="text-secondary">26ms</span>
+</div>
+</div>
+<div class="absolute -right-3 top-1/2 -translate-y-1/2 z-10 hidden xl:flex text-primary">
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</div>
+</div>
+<!-- Node 6: Client Frontend -->
+<div class="group relative flex flex-col justify-between p-3 rounded-lg bg-surface-container hover:bg-surface-container-high transition-all cursor-pointer shadow-md">
+<div class="flex items-start justify-between">
+<span class="p-1.5 rounded bg-surface-container-high text-primary-container">
+<span class="material-symbols-outlined text-[20px]">desktop_windows</span>
+</span>
+<span class="px-1.5 py-0.5 rounded font-mono-metric-sm text-[10px] bg-primary/10 text-primary">WEBGL 2.0</span>
+</div>
+<div class="my-3">
+<span class="font-label-caps text-[9px] text-outline block">NODE 06 // CLIENT RENDER</span>
+<h4 class="font-headline-sm text-body-md text-on-surface font-semibold truncate">MapLibre GL JS</h4>
+<p class="font-mono-metric-sm text-[11px] text-on-surface-variant truncate">Tactical React HUD</p>
+</div>
+<div class="pt-2 bg-surface-container-lowest/50 rounded p-2 flex flex-col gap-1">
+<div class="flex justify-between text-[10px] font-mono-metric-sm">
+<span class="text-outline">FRAMETIME</span>
+<span class="text-secondary">16.4ms (60fps)</span>
+</div>
+<div class="flex justify-between text-[10px] font-mono-metric-sm">
+<span class="text-outline">ACTIVE SESSIONS</span>
+<span class="text-primary">1,489 HUDs</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Node Inspector HUD Drawer -->
+<div class="mt-space-md p-space-md rounded-lg bg-surface-container-high/90 flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md transition-all" id="pipelineInspector">
+<div class="flex items-center gap-space-md">
+<div class="p-2 rounded bg-surface-container-lowest text-primary">
+<span class="material-symbols-outlined text-[24px]">terminal</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps text-secondary font-bold">AWS NODE TELEMETRY //</span>
+<span class="font-mono-metric-sm text-mono-metric-sm text-on-surface">arn:aws:s3:::geosentinel-raster-lake/stac-catalogs/v1/</span>
+</div>
+<p class="font-body-sm text-body-sm text-outline mt-0.5">Partitioning pattern: <code class="text-on-surface font-mono-metric-sm">s3://geosentinel-raster-lake/{collection}/{year}/{doy}/{tile_id}.tif</code> with CloudFront Global Edge distribution.</p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm self-end md:self-center">
+<span class="font-label-caps text-label-caps text-outline">EDGE HIT RATIO:</span>
+<span class="font-mono-metric-md text-mono-metric-md text-primary font-bold">98.4%</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</div>
+</div>
+</div>
+</div>
+<!-- Active Geospatial Datasets Table Section -->
+<div class="flex flex-col w-full rounded-xl bg-surface-container-low p-space-lg mb-space-xl shadow-xl">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md pb-space-lg">
+<div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">inventory_2</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Active Ingested Geospatial Datasets</h3>
+</div>
+<p class="font-body-sm text-body-sm text-outline mt-0.5">Synchronized Cloud Optimized GeoTIFF (COG) and sensor streaming ledgers.</p>
+</div>
+<!-- Search & Filters Bar -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<div class="relative min-w-[240px]">
+<span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-outline text-[16px]">filter_list</span>
+<input class="w-full bg-surface-container-lowest text-on-surface placeholder:text-outline text-body-sm font-mono-metric-sm pl-8 pr-3 py-1.5 rounded-lg focus:outline-none focus:bg-surface-container transition-colors" id="datasetSearchInput" placeholder="Filter by name, provider, resolution..." type="text"/>
+</div>
+<div class="relative">
+<select class="bg-surface-container-high text-on-surface text-body-sm font-body-sm px-3 py-1.5 rounded-lg appearance-none cursor-pointer focus:outline-none pr-8" id="providerFilter">
+<option value="ALL">All Providers</option>
+<option value="NASA">NASA LP DAAC</option>
+<option value="ESA">ESA Copernicus</option>
+<option value="ECMWF">ECMWF Climate</option>
+<option value="NOAA">NOAA CAPA</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-[16px]">expand_more</span>
+</div>
+<div class="relative">
+<select class="bg-surface-container-high text-on-surface text-body-sm font-body-sm px-3 py-1.5 rounded-lg appearance-none cursor-pointer focus:outline-none pr-8" id="resolutionFilter">
+<option value="ALL">All Resolutions</option>
+<option value="10m">High (≤ 10m)</option>
+<option value="1km">Moderate (1km)</option>
+<option value="GRID">Macro / Gridded</option>
+<option value="SENSOR">Ground In-Situ</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-[16px]">expand_more</span>
+</div>
+<button class="p-1.5 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container transition-colors" id="resetFiltersBtn" title="Reset Filters">
+<span class="material-symbols-outlined text-[18px]">restart_alt</span>
+</button>
+</div>
+</div>
+<!-- Inventory Table -->
+<div class="overflow-x-auto rounded-lg bg-surface-container-lowest shadow-inner">
+<table class="w-full text-left border-collapse" id="datasetsTable">
+<thead>
+<tr class="bg-surface-container-high/60 text-outline font-label-caps text-label-caps">
+<th class="py-3 px-4">DATASET ARTIFACT &amp; CODEC</th>
+<th class="py-3 px-4">DATA SOURCE / AGENCY</th>
+<th class="py-3 px-4">SPATIAL COVERAGE</th>
+<th class="py-3 px-4">CATALOG COUNT</th>
+<th class="py-3 px-4">REFRESH LATENCY</th>
+<th class="py-3 px-4">LICENSING TIER</th>
+<th class="py-3 px-4 text-right">STREAM PIPELINE</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 text-body-sm divide-transparent font-mono-metric-sm" id="datasetRows">
+<!-- Row 1: MODIS -->
+<tr class="dataset-item hover:bg-surface-container transition-colors group" data-provider="NASA" data-resolution="1km">
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">wb_sunny</span>
+<div>
+<div class="font-body-md font-semibold text-on-surface group-hover:text-primary transition-colors">MODIS Land Surface Temp &amp; Emissivity</div>
+<div class="font-label-caps text-[10px] text-outline">MOD11A1 v061 // EPSG:4326</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span class="text-on-surface font-body-sm">NASA LP DAAC</span>
+</div>
+</td>
+<td class="py-3 px-4 text-on-surface">Global (1km Grid)</td>
+<td class="py-3 px-4">
+<span class="text-primary font-mono-metric-md">48,200</span>
+<span class="text-outline text-[10px]"> tiles</span>
+</td>
+<td class="py-3 px-4">
+<div class="flex flex-col">
+<span class="text-on-surface">Daily Refresh</span>
+<span class="text-[10px] text-secondary">T-2 hrs sync</span>
+</div>
+</td>
+<td class="py-3 px-4">
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant text-[10px]">Open Access (NASA)</span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1 px-2 py-1 rounded bg-secondary/10 text-secondary text-[11px] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span>
+<span>Active Stream</span>
+</div>
+</td>
+</tr>
+<!-- Row 2: Sentinel-2 -->
+<tr class="dataset-item hover:bg-surface-container transition-colors group" data-provider="ESA" data-resolution="10m">
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">satellite</span>
+<div>
+<div class="font-body-md font-semibold text-on-surface group-hover:text-primary transition-colors">Sentinel-2 MSI Level-2A BOA</div>
+<div class="font-label-caps text-[10px] text-outline">S2A/S2B Bottom-of-Atmosphere COGs</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="text-on-surface font-body-sm">ESA Copernicus</span>
+</div>
+</td>
+<td class="py-3 px-4 text-on-surface">Continental US (10m)</td>
+<td class="py-3 px-4">
+<span class="text-primary font-mono-metric-md">124,500</span>
+<span class="text-outline text-[10px]"> granules</span>
+</td>
+<td class="py-3 px-4">
+<div class="flex flex-col">
+<span class="text-on-surface">5-Day Revisit</span>
+<span class="text-[10px] text-secondary">T-18 min sync</span>
+</div>
+</td>
+<td class="py-3 px-4">
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant text-[10px]">CC BY-SA 3.0 IGO</span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1 px-2 py-1 rounded bg-secondary/10 text-secondary text-[11px] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span>
+<span>Active Stream</span>
+</div>
+</td>
+</tr>
+<!-- Row 3: ERA5 -->
+<tr class="dataset-item hover:bg-surface-container transition-colors group" data-provider="ECMWF" data-resolution="GRID">
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary-container text-[18px]">air</span>
+<div>
+<div class="font-body-md font-semibold text-on-surface group-hover:text-primary transition-colors">ERA5 Land Hourly Atmospheric Reanalysis</div>
+<div class="font-label-caps text-[10px] text-outline">ECMWF Zarr / NetCDF4 Ingest</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim"></span>
+<span class="text-on-surface font-body-sm">ECMWF Copernicus Climate</span>
+</div>
+</td>
+<td class="py-3 px-4 text-on-surface">Global (0.1° grid)</td>
+<td class="py-3 px-4">
+<span class="text-primary font-mono-metric-md">1.20M</span>
+<span class="text-outline text-[10px]"> points</span>
+</td>
+<td class="py-3 px-4">
+<div class="flex flex-col">
+<span class="text-on-surface">Hourly Sync</span>
+<span class="text-[10px] text-secondary">T-4 min sync</span>
+</div>
+</td>
+<td class="py-3 px-4">
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant text-[10px]">Copernicus Open Data</span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1 px-2 py-1 rounded bg-secondary/10 text-secondary text-[11px] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span>
+<span>Active Stream</span>
+</div>
+</td>
+</tr>
+<!-- Row 4: NOAA Urban Heat Island Ground Sensors -->
+<tr class="dataset-item hover:bg-surface-container transition-colors group" data-provider="NOAA" data-resolution="SENSOR">
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-[18px]">device_thermostat</span>
+<div>
+<div class="font-body-md font-semibold text-on-surface group-hover:text-primary transition-colors">NOAA Urban Heat Island Ground Sensor Mesh</div>
+<div class="font-label-caps text-[10px] text-outline">CAPA Campaign In-Situ Telemetry</div>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span class="text-on-surface font-body-sm">NOAA CAPA</span>
+</div>
+</td>
+<td class="py-3 px-4 text-on-surface">24 US Metros</td>
+<td class="py-3 px-4">
+<span class="text-primary font-mono-metric-md">840</span>
+<span class="text-outline text-[10px]"> sensors</span>
+</td>
+<td class="py-3 px-4">
+<div class="flex flex-col">
+<span class="text-on-surface">Real-Time (15m)</span>
+<span class="text-[10px] text-secondary">T-30s sync</span>
+</div>
+</td>
+<td class="py-3 px-4">
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant text-[10px]">Public Domain</span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1 px-2 py-1 rounded bg-secondary/10 text-secondary text-[11px] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span>
+<span>Active Stream</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Pagination / Telemetry Footer -->
+<div class="flex flex-col sm:flex-row items-center justify-between gap-space-sm pt-space-md text-outline font-label-caps text-label-caps">
+<div class="flex items-center gap-2">
+<span class="text-on-surface font-mono-metric-sm" id="visibleCountText">Showing 4 of 4 Registered Pipeline Streams</span>
+<span>•</span>
+<span>INDEX VERSION: STAC-SPEC v1.0.0</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-secondary font-mono-metric-sm">AUTOMATIC FAILOVER ACTIVE</span>
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+</div>
+</div>
+</div>
+<!-- Attribution, Compliance & Licensing Ledger (Bottom Section) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg mb-space-xl">
+<!-- Provider Attributions & Legal Ledger (7 Cols) -->
+<div class="lg:col-span-7 rounded-xl bg-surface-container-low p-space-lg shadow-xl flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-space-xs mb-space-sm">
+<span class="material-symbols-outlined text-[20px] text-primary">policy</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Data Attribution &amp; Governance Ledger</h3>
+</div>
+<p class="font-body-sm text-body-sm text-outline mb-space-md">GeoSentinel planetary analytics operates strictly under non-infringing academic, scientific, and open-source geospatial dissemination mandates.</p>
+<div class="space-y-space-sm">
+<div class="p-3 rounded-lg bg-surface-container-lowest">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-caps text-label-caps text-primary">NASA LP DAAC // MODIS SATELLITE SYSTEM</span>
+<span class="font-mono-metric-sm text-[11px] text-outline">USGS EROS CENTER</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">We acknowledge the use of data products from the Land Processes Distributed Active Archive Center (LP DAAC), located at the U.S. Geological Survey (USGS) Earth Resources Observation and Science (EROS) Center, Sioux Falls, South Dakota.</p>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-lowest">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-caps text-label-caps text-secondary">EUROPEAN SPACE AGENCY (ESA) // COPERNICUS</span>
+<span class="font-mono-metric-sm text-[11px] text-outline">SENTINEL-2 MSI</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Contains modified Copernicus Sentinel data (2024). Sentinel data are free and open access in accordance with the EU Copernicus Regulation (EU) No 377/2014 and Copernicus Open Access Licensing.</p>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-lowest">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-caps text-label-caps text-tertiary-container">NOAA CAPA HEAT WATCH CAMPAIGN</span>
+<span class="font-mono-metric-sm text-[11px] text-outline">NOAA CLIMATE PROGRAM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Urban heat sensor logs derived from national citizen science mapping initiatives in partnership with CAPA Strategies and the NOAA National Integrated Heat Health Information System (NIHHIS).</p>
+</div>
+</div>
+</div>
+<div class="pt-space-md mt-space-md flex items-center justify-between text-outline font-label-caps text-label-caps">
+<span>DATA INTEGRITY CHAIN VERIFIED</span>
+<span class="font-mono-metric-sm text-primary">SHA-256 MANIFEST OK</span>
+</div>
+</div>
+<!-- OGC Standards & AWS Security Ledger (5 Cols) -->
+<div class="lg:col-span-5 flex flex-col gap-space-lg">
+<!-- OGC Standards Compliance -->
+<div class="rounded-xl bg-surface-container-low p-space-lg shadow-xl">
+<div class="flex items-center gap-space-xs mb-space-sm">
+<span class="material-symbols-outlined text-[20px] text-secondary">verified</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">OGC Standards Compliance</h3>
+</div>
+<p class="font-body-sm text-body-sm text-outline mb-space-md">Native interoperability with Open Geospatial Consortium specifications.</p>
+<div class="grid grid-cols-2 gap-2">
+<div class="p-2.5 rounded-lg bg-surface-container-lowest flex items-start gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">check_circle</span>
+<div>
+<div class="font-mono-metric-sm text-mono-metric-sm font-semibold text-on-surface">OGC API - Features</div>
+<div class="font-label-caps text-[10px] text-outline">Part 1 &amp; 2 Core Compliant</div>
+</div>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-lowest flex items-start gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">check_circle</span>
+<div>
+<div class="font-mono-metric-sm text-mono-metric-sm font-semibold text-on-surface">STAC v1.0.0</div>
+<div class="font-label-caps text-[10px] text-outline">SpatioTemporal Catalog</div>
+</div>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-lowest flex items-start gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">check_circle</span>
+<div>
+<div class="font-mono-metric-sm text-mono-metric-sm font-semibold text-on-surface">WMS / WMTS 1.3</div>
+<div class="font-label-caps text-[10px] text-outline">Web Map Tile Server</div>
+</div>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-lowest flex items-start gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">check_circle</span>
+<div>
+<div class="font-mono-metric-sm text-mono-metric-sm font-semibold text-on-surface">GeoParquet / COG</div>
+<div class="font-label-caps text-[10px] text-outline">Cloud-Native Formats</div>
+</div>
+</div>
+</div>
+</div>
+<!-- AWS IAM Security & Encryption Badges -->
+<div class="rounded-xl bg-surface-container-low p-space-lg shadow-xl">
+<div class="flex items-center gap-space-xs mb-space-sm">
+<span class="material-symbols-outlined text-[20px] text-primary">security</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">AWS Security &amp; Compliance</h3>
+</div>
+<p class="font-body-sm text-body-sm text-outline mb-space-md">Enforced hardware-level KMS cryptography and federal certifications.</p>
+<div class="space-y-2">
+<div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-lowest">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">lock</span>
+<span class="font-body-sm font-semibold text-on-surface">AWS KMS 256-bit Encryption</span>
+</div>
+<span class="font-mono-metric-sm text-[10px] px-2 py-0.5 rounded bg-primary/10 text-primary">ENCRYPTED AT REST</span>
+</div>
+<div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-lowest">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">task_alt</span>
+<span class="font-body-sm font-semibold text-on-surface">SOC 2 Type II Certified</span>
+</div>
+<span class="font-mono-metric-sm text-[10px] px-2 py-0.5 rounded bg-secondary/10 text-secondary">ANNUAL AUDIT 2024</span>
+</div>
+<div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-lowest">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary-container text-[18px]">shield</span>
+<span class="font-body-sm font-semibold text-on-surface">FedRAMP High Compliant Mesh</span>
+</div>
+<span class="font-mono-metric-sm text-[10px] px-2 py-0.5 rounded bg-tertiary-container/10 text-tertiary-container">GOV-CLOUD READY</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function initDataSourcesController() {
+    const searchInput = document.getElementById('datasetSearchInput');
+    const providerFilter = document.getElementById('providerFilter');
+    const resolutionFilter = document.getElementById('resolutionFilter');
+    const resetBtn = document.getElementById('resetFiltersBtn');
+    const rows = document.querySelectorAll('.dataset-item');
+    const visibleCountText = document.getElementById('visibleCountText');
+    const refreshBtn = document.getElementById('refreshTopologyBtn');
+    const refreshIcon = document.getElementById('refreshIcon');
+
+    function filterDatasets() {
+      const query = (searchInput ? searchInput.value : '').toLowerCase().trim();
+      const provider = providerFilter ? providerFilter.value : 'ALL';
+      const resolution = resolutionFilter ? resolutionFilter.value : 'ALL';
+      let visible = 0;
+
+      rows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        const rowProvider = row.getAttribute('data-provider');
+        const rowResolution = row.getAttribute('data-resolution');
+
+        const matchesQuery = !query || text.includes(query);
+        const matchesProvider = provider === 'ALL' || rowProvider === provider;
+        const matchesResolution = resolution === 'ALL' || rowResolution === resolution;
+
+        if (matchesQuery && matchesProvider && matchesResolution) {
+          row.style.display = '';
+          visible++;
+        } else {
+          row.style.display = 'none';
+        }
+      });
+
+      if (visibleCountText) {
+        visibleCountText.textContent = `Showing ${visible} of ${rows.length} Registered Pipeline Streams`;
+      }
+    }
+
+    if (searchInput) searchInput.addEventListener('input', filterDatasets);
+    if (providerFilter) providerFilter.addEventListener('change', filterDatasets);
+    if (resolutionFilter) resolutionFilter.addEventListener('change', filterDatasets);
+
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        if (searchInput) searchInput.value = '';
+        if (providerFilter) providerFilter.value = 'ALL';
+        if (resolutionFilter) resolutionFilter.value = 'ALL';
+        filterDatasets();
+      });
+    }
+
+    if (refreshBtn && refreshIcon) {
+      refreshBtn.addEventListener('click', () => {
+        refreshIcon.classList.add('animate-spin');
+        const originalText = refreshBtn.querySelector('span:last-child').textContent;
+        refreshBtn.querySelector('span:last-child').textContent = 'Syncing...';
+        setTimeout(() => {
+          refreshIcon.classList.remove('animate-spin');
+          refreshBtn.querySelector('span:last-child').textContent = originalText;
+        }, 800);
+      });
+    }
+  })();
+</script></main></div></body></html>

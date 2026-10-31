@@ -1,0 +1,15 @@
+services:
+  geosentinel:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: geosentinel-platform
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=production
+      - DEBUG=false
+      - APP_PORT=8000
+      - AWS_USE_ANONYMOUS=true
+      - AWS_REGION=us-east-1
